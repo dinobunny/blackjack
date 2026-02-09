@@ -109,4 +109,9 @@
         <file>assets/cards/castom/spades_k.png</file>
         <file>assets/cards/castom/spades_q.png</file>
     </qresource>
+    <qresource prefix="/assets/music">
+        <file>assets/music/background_Music.flac</file>
+        <file>assets/music/click.mp3</file>
+        <file>assets/music/dealing.mp3</file>
+    </qresource>
 </RCC>
