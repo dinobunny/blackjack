@@ -114,4 +114,43 @@
         <file>assets/music/click.mp3</file>
         <file>assets/music/dealing.mp3</file>
     </qresource>
+    <qresource prefix="/assets/ui">
+        <file>assets/ui/game.png</file>
+        <file>assets/ui/menu.jpg</file>
+        <file>assets/ui/Shirt Style Choice.jpg</file>
+    </qresource>
+    <qresource prefix="/assets/chips">
+        <file>assets/chips/chipBlackWhite.png</file>
+        <file>assets/chips/chipBlackWhite_border.png</file>
+        <file>assets/chips/chipBlackWhite_side.png</file>
+        <file>assets/chips/chipBlackWhite_sideBorder.png</file>
+        <file>assets/chips/chipBlue.png</file>
+        <file>assets/chips/chipBlue_border.png</file>
+        <file>assets/chips/chipBlue_side.png</file>
+        <file>assets/chips/chipBlue_sideBorder.png</file>
+        <file>assets/chips/chipBlueWhite.png</file>
+        <file>assets/chips/chipBlueWhite_border.png</file>
+        <file>assets/chips/chipBlueWhite_side.png</file>
+        <file>assets/chips/chipBlueWhite_sideBorder.png</file>
+        <file>assets/chips/chipGreen.png</file>
+        <file>assets/chips/chipGreen_border.png</file>
+        <file>assets/chips/chipGreen_side.png</file>
+        <file>assets/chips/chipGreen_sideBorder.png</file>
+        <file>assets/chips/chipGreenWhite.png</file>
+        <file>assets/chips/chipGreenWhite_border.png</file>
+        <file>assets/chips/chipGreenWhite_side.png</file>
+        <file>assets/chips/chipGreenWhite_sideBorder.png</file>
+        <file>assets/chips/chipRedWhite.png</file>
+        <file>assets/chips/chipRedWhite_border.png</file>
+        <file>assets/chips/chipRedWhite_side.png</file>
+        <file>assets/chips/chipRedWhite_sideBorder.png</file>
+        <file>assets/chips/chipWhite.png</file>
+        <file>assets/chips/chipWhite_border.png</file>
+        <file>assets/chips/chipWhite_side.png</file>
+        <file>assets/chips/chipWhite_sideBorder.png</file>
+        <file>assets/chips/chipWhiteBlue.png</file>
+        <file>assets/chips/chipWhiteBlue_border.png</file>
+        <file>assets/chips/chipWhiteBlue_side.png</file>
+        <file>assets/chips/chipWhiteBlue_sideBorder.png</file>
+    </qresource>
 </RCC>
