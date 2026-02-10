@@ -112,13 +112,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="ui\mainwindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="mainwindow.h" />
+    <QtMoc Include="ui\mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="mainwindow.ui" />
+    <QtUic Include="ui\mainwindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
