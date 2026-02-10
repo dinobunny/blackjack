@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audio\PlaySound.cpp" />
+    <ClCompile Include="core\Balance.cpp" />
     <ClCompile Include="core\BlackjackGame.cpp" />
     <ClCompile Include="core\Card.cpp" />
     <ClCompile Include="core\Deck.cpp" />
@@ -130,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio\PlaySound.h" />
+    <ClInclude Include="core\Balance.hpp" />
     <ClInclude Include="core\BlackjackGame.hpp" />
     <ClInclude Include="core\Card.hpp" />
     <ClInclude Include="core\Deck.hpp" />
