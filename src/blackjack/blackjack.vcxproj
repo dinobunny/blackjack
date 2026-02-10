@@ -111,6 +111,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="audio\PlaySound.cpp" />
     <ClCompile Include="core\BlackjackGame.cpp" />
     <ClCompile Include="core\Card.cpp" />
     <ClCompile Include="core\Deck.cpp" />
@@ -128,11 +129,15 @@
     <QtRcc Include="images.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="audio\PlaySound.h" />
     <ClInclude Include="core\BlackjackGame.hpp" />
     <ClInclude Include="core\Card.hpp" />
     <ClInclude Include="core\Deck.hpp" />
     <ClInclude Include="core\GameRules.hpp" />
     <ClInclude Include="core\Hand.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

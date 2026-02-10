@@ -41,6 +41,9 @@
     <ClCompile Include="core\Hand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="audio\PlaySound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ui\mainwindow.h">
@@ -73,5 +76,11 @@
     <ClInclude Include="core\Hand.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="audio\PlaySound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
