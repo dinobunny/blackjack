@@ -111,6 +111,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\BlackjackGame.cpp" />
+    <ClCompile Include="core\Card.cpp" />
+    <ClCompile Include="core\Deck.cpp" />
+    <ClCompile Include="core\Hand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ui\mainwindow.cpp" />
   </ItemGroup>
@@ -122,6 +126,13 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="images.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\BlackjackGame.hpp" />
+    <ClInclude Include="core\Card.hpp" />
+    <ClInclude Include="core\Deck.hpp" />
+    <ClInclude Include="core\GameRules.hpp" />
+    <ClInclude Include="core\Hand.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
