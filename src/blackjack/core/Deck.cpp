@@ -3,64 +3,78 @@
 #include <random>
 #include <stdexcept>
 
-namespace blackjack {
+namespace blackjack
+{
 
-Deck::Deck(size_t numDecks)
-    : currentIndex_(0), numDecks_(numDecks), rng_(std::random_device{}()) {
-  if (numDecks == 0) {
-    throw std::invalid_argument("Number of decks must be at least 1");
-  }
+    Deck::Deck(size_t numDecks)
+        : currentIndex_(0), numDecks_(numDecks), rng_(std::random_device {}())
+    {
+        if (numDecks == 0)
+        {
+            throw std::invalid_argument("Number of decks must be at least 1");
+        }
 
-  initializeDeck();
-  shuffle();
-}
-
-void Deck::initializeDeck() {
-  cards_.clear();
-  cards_.reserve(52 * numDecks_);
-
-  for (size_t deck = 0; deck < numDecks_; ++deck) {
-    for (int suit = 0; suit < 4; ++suit) {
-      for (int rank = 1; rank <= 13; ++rank) {
-        cards_.emplace_back(static_cast<Rank>(rank), static_cast<Suit>(suit));
-      }
+        initializeDeck();
+        shuffle();
     }
-  }
-}
 
-void Deck::shuffle() {
-  // Fisher-Yates shuffle
-  for (size_t i = cards_.size() - 1; i > 0; --i) {
-    std::uniform_int_distribution<size_t> dist(0, i);
-    size_t j = dist(rng_);
-    std::swap(cards_[i], cards_[j]);
-  }
+    void Deck::initializeDeck()
+    {
+        cards_.clear();
+        cards_.reserve(52 * numDecks_);
 
-  currentIndex_ = 0;
-}
+        for (size_t deck = 0; deck < numDecks_; ++deck)
+        {
+            for (int suit = 0; suit < 4; ++suit)
+            {
+                for (int rank = 1; rank <= 13; ++rank)
+                {
+                    cards_.emplace_back(static_cast<Rank>(rank), static_cast<Suit>(suit));
+                }
+            }
+        }
+    }
 
-Card Deck::deal() {
-  if (currentIndex_ >= cards_.size()) {
-    throw std::runtime_error("Deck is empty");
-  }
+    void Deck::shuffle()
+    {
+        // Fisher-Yates shuffle
+        for (size_t i = cards_.size() - 1; i > 0; --i)
+        {
+            std::uniform_int_distribution<size_t> dist(0, i);
+            size_t j = dist(rng_);
+            std::swap(cards_ [i], cards_ [j]);
+        }
 
-  return cards_[currentIndex_++];
-}
+        currentIndex_ = 0;
+    }
 
-bool Deck::needsReshuffle(double penetration) const {
-  if (penetration < 0.0 || penetration > 1.0) {
-    throw std::invalid_argument("Penetration must be between 0 and 1");
-  }
+    Card Deck::deal()
+    {
+        if (currentIndex_ >= cards_.size())
+        {
+            throw std::runtime_error("Deck is empty");
+        }
 
-  size_t cardsDealt = currentIndex_;
-  size_t threshold = static_cast<size_t>(cards_.size() * penetration);
+        return cards_ [currentIndex_++];
+    }
 
-  return cardsDealt >= threshold;
-}
+    bool Deck::needsReshuffle(double penetration) const
+    {
+        if (penetration < 0.0 || penetration > 1.0)
+        {
+            throw std::invalid_argument("Penetration must be between 0 and 1");
+        }
 
-void Deck::reset() {
-  initializeDeck();
-  shuffle();
-}
+        size_t cardsDealt = currentIndex_;
+        size_t threshold = static_cast<size_t>(cards_.size() * penetration);
+
+        return cardsDealt >= threshold;
+    }
+
+    void Deck::reset()
+    {
+        initializeDeck();
+        shuffle();
+    }
 
 } // namespace blackjack
