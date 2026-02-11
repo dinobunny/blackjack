@@ -3,6 +3,8 @@
 
 #include "Start.h"
 #include "ui_Start.h"
+#include "Menu.h"
+
 
 Start::Start(QWidget* parent)
     : QMainWindow(parent)
@@ -25,9 +27,16 @@ Start::~Start()
     delete ui;
 }
 
+void Start::OnAnimFinished()
+{
+    auto* menu = new Menu();
+    menu->show();
+    this->close();
+}
+
 QLabel* Start::CreateChip()
 {
-    QLabel* chip = new QLabel(this);
+    auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipRedWhite.png)");
 
     chip->setPixmap(chipPix);
@@ -40,11 +49,14 @@ QLabel* Start::CreateChip()
 
 void Start::AnimateChip(QLabel* chip)
 {
-    QPropertyAnimation* anim = new QPropertyAnimation(chip, "pos");
+    auto* anim = new QPropertyAnimation(chip, "pos");
 
     anim->setDuration(4000);
     anim->setStartValue(QPoint(200, 400));
     anim->setEndValue(QPoint(1000, 600));
     
+    connect(anim, &QPropertyAnimation::finished, this, &Start::OnAnimFinished);
+    
     anim->start(QAbstractAnimation::DeleteWhenStopped);
+
 }
