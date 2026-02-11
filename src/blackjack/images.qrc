@@ -118,6 +118,7 @@
         <file>assets/ui/game.png</file>
         <file>assets/ui/menu.png</file>
         <file>assets/ui/Style.png</file>
+        <file>assets/ui/start.png</file>
     </qresource>
     <qresource prefix="/assets/chips">
         <file>assets/chips/chipBlackWhite.png</file>
