@@ -50,6 +50,9 @@
     <ClCompile Include="ui\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ui\Style.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ui\Start.h">
@@ -58,12 +61,18 @@
     <QtMoc Include="ui\Menu.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ui\Style.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\Start.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\Menu.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\Style.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

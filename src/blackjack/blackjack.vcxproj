@@ -120,6 +120,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ui\Menu.cpp" />
     <ClCompile Include="ui\Start.cpp" />
+    <ClCompile Include="ui\Style.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ui\Start.h" />
@@ -127,6 +128,7 @@
   <ItemGroup>
     <QtUic Include="ui\Menu.ui" />
     <QtUic Include="ui\Start.ui" />
+    <QtUic Include="ui\Style.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="images.qrc" />
@@ -139,6 +141,7 @@
     <ClInclude Include="core\Deck.hpp" />
     <ClInclude Include="core\GameRules.hpp" />
     <ClInclude Include="core\Hand.hpp" />
+    <QtMoc Include="ui\Style.h" />
     <QtMoc Include="ui\Menu.h" />
   </ItemGroup>
   <ItemGroup>
