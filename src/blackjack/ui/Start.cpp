@@ -45,5 +45,6 @@ void Start::AnimateChip(QLabel* chip)
     anim->setDuration(4000);
     anim->setStartValue(QPoint(200, 400));
     anim->setEndValue(QPoint(1000, 600));
-    anim->start();
+    
+    anim->start(QAbstractAnimation::DeleteWhenStopped);
 }
