@@ -116,8 +116,8 @@
     </qresource>
     <qresource prefix="/assets/ui">
         <file>assets/ui/game.png</file>
-        <file>assets/ui/menu.jpg</file>
-        <file>assets/ui/Shirt Style Choice.jpg</file>
+        <file>assets/ui/menu.png</file>
+        <file>assets/ui/Shirt-Style-Choice.png</file>
     </qresource>
     <qresource prefix="/assets/chips">
         <file>assets/chips/chipBlackWhite.png</file>
