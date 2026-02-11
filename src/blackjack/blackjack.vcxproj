@@ -118,13 +118,13 @@
     <ClCompile Include="core\Deck.cpp" />
     <ClCompile Include="core\Hand.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ui\mainwindow.cpp" />
+    <ClCompile Include="ui\Start.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="ui\mainwindow.h" />
+    <QtMoc Include="ui\Start.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="ui\mainwindow.ui" />
+    <QtUic Include="ui\Start.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="images.qrc" />

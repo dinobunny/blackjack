@@ -26,7 +26,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui\mainwindow.cpp">
+    <ClCompile Include="ui\Start.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\BlackjackGame.cpp">
@@ -49,12 +49,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="ui\mainwindow.h">
+    <QtMoc Include="ui\Start.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="ui\mainwindow.ui">
+    <QtUic Include="ui\Start.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
