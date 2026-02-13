@@ -16,6 +16,10 @@ public:
     Style(QWidget* parent = nullptr);
     ~Style();
 
+    void OnAnimFinished();
+private slots:
+    void on_btnStyle_clicked();
+
 private:
     Ui::Style* ui;
 };
