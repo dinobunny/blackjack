@@ -10,9 +10,6 @@ Style::Style(QWidget* parent)
 {
     ui->setupUi(this);
 
-    // Background
-    QPixmap bg(R"(:/assets/ui/assets/ui/Style.png)");
-    ui->label->setPixmap(bg);
 }
 
 Style::~Style()
