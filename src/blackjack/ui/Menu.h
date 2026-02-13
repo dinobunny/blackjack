@@ -16,6 +16,14 @@ public:
     Menu(QWidget* parent = nullptr);
     ~Menu();
 
+    void OnAnimFinished();
+
+
+private slots:
+    void on_btnStyle_clicked();
+
+    void on_btnPlay_clicked();
+
 private:
     Ui::Menu* ui;
 };

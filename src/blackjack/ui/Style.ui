@@ -30,41 +30,107 @@
    <widget class="QPushButton" name="btnStyle">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>450</y>
+      <x>1130</x>
+      <y>780</y>
       <width>240</width>
       <height>52</height>
      </rect>
     </property>
     <property name="text">
-     <string>Choose Сards Style  </string>
+     <string>Назад</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnPlay1">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>350</y>
+      <x>870</x>
+      <y>780</y>
       <width>240</width>
       <height>52</height>
      </rect>
     </property>
     <property name="text">
-     <string>Play</string>
+     <string>Выбор</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnExit1">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>550</y>
-      <width>240</width>
-      <height>52</height>
+      <x>30</x>
+      <y>0</y>
+      <width>1400</width>
+      <height>80</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Exit</string>
+    <property name="font">
+     <font>
+      <pointsize>30</pointsize>
+      <bold>true</bold>
+     </font>
     </property>
+    <property name="text">
+     <string>Choose Сards Style  </string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>1371</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_Classic">
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Classic  </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listWidget"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>190</y>
+      <width>1371</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_Castom">
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Castom </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listWidget_2"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -80,22 +146,5 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>btnExit1</sender>
-   <signal>clicked()</signal>
-   <receiver>Style</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>259</x>
-     <y>596</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>699</x>
-     <y>449</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
