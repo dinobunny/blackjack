@@ -13,20 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/assets/ui/assets/ui/menu.png);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1400</width>
-      <height>900</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>we</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btnStyle">
     <property name="geometry">
      <rect>
@@ -79,7 +69,9 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../images.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>btnExit</sender>
