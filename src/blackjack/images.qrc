@@ -54,61 +54,6 @@
         <file>assets/cards/classic/cardSpadesK.png</file>
         <file>assets/cards/classic/cardSpadesQ.png</file>
     </qresource>
-    <qresource prefix="/assets/cards/castom">
-        <file>assets/cards/castom/back_light.png</file>
-        <file>assets/cards/castom/clubs_2.png</file>
-        <file>assets/cards/castom/clubs_3.png</file>
-        <file>assets/cards/castom/clubs_4.png</file>
-        <file>assets/cards/castom/clubs_5.png</file>
-        <file>assets/cards/castom/clubs_6.png</file>
-        <file>assets/cards/castom/clubs_7.png</file>
-        <file>assets/cards/castom/clubs_8.png</file>
-        <file>assets/cards/castom/clubs_9.png</file>
-        <file>assets/cards/castom/clubs_10.png</file>
-        <file>assets/cards/castom/clubs_a.png</file>
-        <file>assets/cards/castom/clubs_j.png</file>
-        <file>assets/cards/castom/clubs_k.png</file>
-        <file>assets/cards/castom/clubs_q.png</file>
-        <file>assets/cards/castom/diamonds_2.png</file>
-        <file>assets/cards/castom/diamonds_3.png</file>
-        <file>assets/cards/castom/diamonds_4.png</file>
-        <file>assets/cards/castom/diamonds_5.png</file>
-        <file>assets/cards/castom/diamonds_6.png</file>
-        <file>assets/cards/castom/diamonds_7.png</file>
-        <file>assets/cards/castom/diamonds_8.png</file>
-        <file>assets/cards/castom/diamonds_9.png</file>
-        <file>assets/cards/castom/diamonds_10.png</file>
-        <file>assets/cards/castom/diamonds_a.png</file>
-        <file>assets/cards/castom/diamonds_j.png</file>
-        <file>assets/cards/castom/diamonds_k.png</file>
-        <file>assets/cards/castom/diamonds_q.png</file>
-        <file>assets/cards/castom/hearts_2.png</file>
-        <file>assets/cards/castom/hearts_3.png</file>
-        <file>assets/cards/castom/hearts_4.png</file>
-        <file>assets/cards/castom/hearts_5.png</file>
-        <file>assets/cards/castom/hearts_6.png</file>
-        <file>assets/cards/castom/hearts_7.png</file>
-        <file>assets/cards/castom/hearts_8.png</file>
-        <file>assets/cards/castom/hearts_9.png</file>
-        <file>assets/cards/castom/hearts_10.png</file>
-        <file>assets/cards/castom/hearts_a.png</file>
-        <file>assets/cards/castom/hearts_j.png</file>
-        <file>assets/cards/castom/hearts_k.png</file>
-        <file>assets/cards/castom/hearts_q.png</file>
-        <file>assets/cards/castom/spades_2.png</file>
-        <file>assets/cards/castom/spades_3.png</file>
-        <file>assets/cards/castom/spades_4.png</file>
-        <file>assets/cards/castom/spades_5.png</file>
-        <file>assets/cards/castom/spades_6.png</file>
-        <file>assets/cards/castom/spades_7.png</file>
-        <file>assets/cards/castom/spades_8.png</file>
-        <file>assets/cards/castom/spades_9.png</file>
-        <file>assets/cards/castom/spades_10.png</file>
-        <file>assets/cards/castom/spades_a.png</file>
-        <file>assets/cards/castom/spades_j.png</file>
-        <file>assets/cards/castom/spades_k.png</file>
-        <file>assets/cards/castom/spades_q.png</file>
-    </qresource>
     <qresource prefix="/assets/music">
         <file>assets/music/background_Music.flac</file>
         <file>assets/music/click.mp3</file>
@@ -153,5 +98,60 @@
         <file>assets/chips/chipWhiteBlue_border.png</file>
         <file>assets/chips/chipWhiteBlue_side.png</file>
         <file>assets/chips/chipWhiteBlue_sideBorder.png</file>
+    </qresource>
+    <qresource prefix="/assets/cards/castom">
+        <file>assets/cards/castom/cardBack_red1.png</file>
+        <file>assets/cards/castom/cardClubs2.png</file>
+        <file>assets/cards/castom/cardClubs3.png</file>
+        <file>assets/cards/castom/cardClubs4.png</file>
+        <file>assets/cards/castom/cardClubs5.png</file>
+        <file>assets/cards/castom/cardClubs6.png</file>
+        <file>assets/cards/castom/cardClubs7.png</file>
+        <file>assets/cards/castom/cardClubs8.png</file>
+        <file>assets/cards/castom/cardClubs9.png</file>
+        <file>assets/cards/castom/cardClubs10.png</file>
+        <file>assets/cards/castom/cardClubsA.png</file>
+        <file>assets/cards/castom/cardClubsJ.png</file>
+        <file>assets/cards/castom/cardClubsK.png</file>
+        <file>assets/cards/castom/cardClubsQ.png</file>
+        <file>assets/cards/castom/cardDiamonds2.png</file>
+        <file>assets/cards/castom/cardDiamonds3.png</file>
+        <file>assets/cards/castom/cardDiamonds4.png</file>
+        <file>assets/cards/castom/cardDiamonds5.png</file>
+        <file>assets/cards/castom/cardDiamonds6.png</file>
+        <file>assets/cards/castom/cardDiamonds7.png</file>
+        <file>assets/cards/castom/cardDiamonds8.png</file>
+        <file>assets/cards/castom/cardDiamonds9.png</file>
+        <file>assets/cards/castom/cardDiamonds10.png</file>
+        <file>assets/cards/castom/cardDiamondsA.png</file>
+        <file>assets/cards/castom/cardDiamondsJ.png</file>
+        <file>assets/cards/castom/cardDiamondsK.png</file>
+        <file>assets/cards/castom/cardDiamondsQ.png</file>
+        <file>assets/cards/castom/cardHearts2.png</file>
+        <file>assets/cards/castom/cardHearts3.png</file>
+        <file>assets/cards/castom/cardHearts4.png</file>
+        <file>assets/cards/castom/cardHearts5.png</file>
+        <file>assets/cards/castom/cardHearts6.png</file>
+        <file>assets/cards/castom/cardHearts7.png</file>
+        <file>assets/cards/castom/cardHearts8.png</file>
+        <file>assets/cards/castom/cardHearts9.png</file>
+        <file>assets/cards/castom/cardHearts10.png</file>
+        <file>assets/cards/castom/cardHeartsA.png</file>
+        <file>assets/cards/castom/cardHeartsJ.png</file>
+        <file>assets/cards/castom/cardHeartsK.png</file>
+        <file>assets/cards/castom/cardHeartsQ.png</file>
+        <file>assets/cards/castom/cardSpades2.png</file>
+        <file>assets/cards/castom/cardSpades3.png</file>
+        <file>assets/cards/castom/cardSpades4.png</file>
+        <file>assets/cards/castom/cardSpades5.png</file>
+        <file>assets/cards/castom/cardSpades6.png</file>
+        <file>assets/cards/castom/cardSpades7.png</file>
+        <file>assets/cards/castom/cardSpades8.png</file>
+        <file>assets/cards/castom/cardSpades9.png</file>
+        <file>assets/cards/castom/cardSpades10.png</file>
+        <file>assets/cards/castom/cardSpadesA.png</file>
+        <file>assets/cards/castom/cardSpadesJ.png</file>
+        <file>assets/cards/castom/cardSpadesK.png</file>
+        <file>assets/cards/castom/cardSpadesQ.png</file>
     </qresource>
 </RCC>

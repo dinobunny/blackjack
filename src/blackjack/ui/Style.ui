@@ -115,7 +115,7 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                   <enum>Qt::LayoutDirection::LeftToRight</enum>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/clubs_a.png);</string>
+                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/cardClubsA.png);</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -138,7 +138,7 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                <item row="0" column="7">
                 <widget class="QLabel" name="Castom_card_7">
                  <property name="styleSheet">
-                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/clubs_10.png);</string>
+                  <string notr="true">border-image: url(:/assets/cards/castom/assets/cards/castom/cardClubs10.png);</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -148,17 +148,7 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                <item row="0" column="8">
                 <widget class="QLabel" name="Castom_card_8">
                  <property name="styleSheet">
-                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/clubs_9.png);</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="Castom_card_2">
-                 <property name="styleSheet">
-                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/back_light.png);</string>
+                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/cardClubs9.png);</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -168,7 +158,7 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                <item row="0" column="6">
                 <widget class="QLabel" name="Castom_card_6">
                  <property name="styleSheet">
-                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/clubs_j.png);</string>
+                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/cardClubsJ.png);</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -178,7 +168,8 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                <item row="0" column="3">
                 <widget class="QLabel" name="Castom_card_4">
                  <property name="styleSheet">
-                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/clubs_k.png);</string>
+                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/clubs_k.png);
+image: url(:/assets/cards/castom/assets/cards/castom/cardClubsK.png);</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -188,7 +179,17 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                <item row="0" column="4">
                 <widget class="QLabel" name="Castom_card_5">
                  <property name="styleSheet">
-                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/clubs_q.png);</string>
+                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/cardClubsQ.png);</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="Castom_card_2">
+                 <property name="styleSheet">
+                  <string notr="true">image: url(:/assets/cards/castom/assets/cards/castom/cardBack_red1.png);</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -236,20 +237,23 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                  </property>
                 </widget>
                </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="Classic_card_1">
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>14</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Classic</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="6">
                 <widget class="QLabel" name="Classic_card_6">
                  <property name="styleSheet">
                   <string notr="true">image: url(:/assets/cards/classic/assets/cards/classic/cardClubsJ.png);</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="Classic_card_2">
-                 <property name="styleSheet">
-                  <string notr="true">image: url(:/assets/cards/classic/assets/cards/classic/cardBack_red1.png);</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -286,6 +290,16 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                  </property>
                 </widget>
                </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="Classic_card_2">
+                 <property name="styleSheet">
+                  <string notr="true">image: url(:/assets/cards/classic/assets/cards/classic/cardBack_red1.png);</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="4">
                 <widget class="QLabel" name="Classic_card_4">
                  <property name="styleSheet">
@@ -293,19 +307,6 @@ QWidget#widget_Castom[selected=&quot;true&quot;] {
                  </property>
                  <property name="text">
                   <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="Classic_card_1">
-                 <property name="font">
-                  <font>
-                   <family>Times New Roman</family>
-                   <pointsize>14</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Classic</string>
                  </property>
                 </widget>
                </item>
