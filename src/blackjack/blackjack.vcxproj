@@ -120,6 +120,7 @@
     <ClCompile Include="DeckStyle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ui\Menu.cpp" />
+    <ClCompile Include="ui\Play.cpp" />
     <ClCompile Include="ui\Start.cpp" />
     <ClCompile Include="ui\Style.cpp" />
   </ItemGroup>
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\Menu.ui" />
+    <QtUic Include="ui\Play.ui" />
     <QtUic Include="ui\Start.ui" />
     <QtUic Include="ui\Style.ui" />
   </ItemGroup>
@@ -143,6 +145,7 @@
     <ClInclude Include="core\GameRules.hpp" />
     <ClInclude Include="core\Hand.hpp" />
     <ClInclude Include="DeckStyle.h" />
+    <QtMoc Include="ui\Play.h" />
     <QtMoc Include="ui\Style.h" />
     <QtMoc Include="ui\Menu.h" />
   </ItemGroup>

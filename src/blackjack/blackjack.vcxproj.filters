@@ -56,6 +56,9 @@
     <ClCompile Include="DeckStyle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ui\Play.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ui\Start.h">
@@ -67,6 +70,9 @@
     <QtMoc Include="ui\Style.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ui\Play.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\Start.ui">
@@ -76,6 +82,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\Style.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\Play.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
