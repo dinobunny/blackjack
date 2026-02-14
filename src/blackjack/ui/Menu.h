@@ -16,7 +16,8 @@ public:
     Menu(QWidget* parent = nullptr);
     ~Menu();
 
-    void OnAnimFinished();
+    void goStyle();
+    void goPlay();
 
 
 private slots:

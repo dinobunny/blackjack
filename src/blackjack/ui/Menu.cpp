@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "Style.h"
+#include "Play.h"
 
 #include "ui_Menu.h"
 
@@ -21,21 +22,28 @@ Menu::~Menu()
     delete ui;
 }
 
-void Menu::OnAnimFinished()
+void Menu::goStyle()
 {
     auto* menu = new Style();
     menu->show();
     this->close();
 }
 
+void Menu::goPlay()
+{
+    auto* menu = new Play();
+    menu->show();
+    this->close();
+}
+
 void Menu::on_btnStyle_clicked()
 {
-    OnAnimFinished();
+    goStyle();
 }
 
     
 void Menu::on_btnPlay_clicked()
 {
-
+    goPlay();
 }
 
