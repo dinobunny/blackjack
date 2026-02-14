@@ -16,13 +16,15 @@ public:
     Style(QWidget* parent = nullptr);
     ~Style();
 
-private:
-    void applySelected(QWidget* widget, bool on);
-    void mousePressEvent(QMouseEvent* event);
-    void OnAnimFinished();
-
 private slots:
-    void on_btnStyle_clicked();
+    void on_btnSelect_clicked();
+    void on_btnBack_clicked();
+
+private:
+    void installRecursive(QWidget* root);
+    void applySelected(QWidget* widget, const char* prop, bool on);
+    bool eventFilter(QObject* obj, QEvent* event);
+    void back();
 
 private:
     Ui::Style* ui;

@@ -1,9 +1,8 @@
 #include "Style.h"
 #include "ui_Style.h"
 #include "Menu.h"
+#include "DeckStyle.h"
 
-#include <QPixmap>
-#include <QMouseEvent>
 #include <QStyle>
 
 Style::Style(QWidget* parent)
@@ -11,9 +10,8 @@ Style::Style(QWidget* parent)
     , ui(new Ui::Style)
 {
     ui->setupUi(this);
-    ui->widget_Classic->installEventFilter(this);
-    ui->widget_Castom->installEventFilter(this);
-
+    installRecursive(ui->widget_Classic);
+    installRecursive(ui->widget_Castom);
 }
 
 Style::~Style()
@@ -21,42 +19,83 @@ Style::~Style()
     delete ui;
 }
 
-void Style::OnAnimFinished()
+void Style::back()
 {
     auto* style = new Menu();
     style->show();
     this->close();
 }
-void Style::on_btnStyle_clicked()
-{
-    OnAnimFinished();
-}
 
-// Checking if the map style selection widgets are clicked and setting the "selected" property for the corresponding widget to change its appearance
-void Style::applySelected(QWidget* widget, bool on)
+void Style::applySelected(QWidget* widget, const char* prop, bool on)
 {
-    widget->setProperty("selected", on);
+    widget->setProperty(prop, on);
     widget->style()->unpolish(widget);
     widget->style()->polish(widget);
     widget->update();
 }
 
-
-void Style::mousePressEvent(QMouseEvent* event)
+void Style::on_btnSelect_clicked()
 {
-    const QPoint pClassic = ui->widget_Classic->mapFrom(this, event->pos());
-    const QPoint pCustom = ui->widget_Castom->mapFrom(this, event->pos());
+    const bool classic = ui->widget_Classic->property("selected").toBool();
+    const bool custom = ui->widget_Castom->property("selected").toBool();
 
-    if (ui->widget_Classic->rect().contains(pClassic))
+    if (!classic && !custom)
+        return;
+
+    applySelected(ui->widget_Classic, "confirmed", classic);
+    applySelected(ui->widget_Castom, "confirmed", custom);
+
+    blackjack::DeckSettings::SetStyle(
+        classic ? blackjack::DeckStyle::Classic : blackjack::DeckStyle::Castom
+    );
+}
+
+void Style::on_btnBack_clicked()
+{
+    back();
+}
+
+void Style::installRecursive(QWidget* root)
+{
+    root->setAttribute(Qt::WA_StyledBackground, true);
+    root->installEventFilter(this);
+
+    const auto children = root->findChildren<QWidget*>();
+    for (auto* c : children)
+        c->installEventFilter(this);
+}
+
+bool Style::eventFilter(QObject* obj, QEvent* event)
+{
+    if (event->type() != QEvent::MouseButtonPress)
+        return false;
+
+    auto* widget = qobject_cast<QWidget*>(obj);
+    if (!widget)
+        return false;
+
+    QWidget* pointer = widget;
+
+    while (pointer &&
+           pointer != ui->widget_Classic &&
+           pointer != ui->widget_Castom)
     {
-        applySelected(ui->widget_Classic, true);
-        applySelected(ui->widget_Castom, false);
-    }
-    else if (ui->widget_Castom->rect().contains(pCustom))
-    {
-        applySelected(ui->widget_Castom, true);
-        applySelected(ui->widget_Classic, false);
+        pointer = pointer->parentWidget();
     }
 
-    QMainWindow::mousePressEvent(event);
+    if (pointer == ui->widget_Classic)
+    {
+        applySelected(ui->widget_Classic, "selected", true);
+        applySelected(ui->widget_Castom, "selected", false);
+        return true;
+    }
+
+    if (pointer == ui->widget_Castom)
+    {
+        applySelected(ui->widget_Castom, "selected", true);
+        applySelected(ui->widget_Classic, "selected", false);
+        return true;
+    }
+
+    return false;
 }

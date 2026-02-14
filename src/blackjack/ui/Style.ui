@@ -16,15 +16,19 @@
   <property name="styleSheet">
    <string notr="true">QWidget#widget_Classic, QWidget#widget_Castom {
     background: rgba(0,0,0,90);
-    border: 2px solid white;
+    border: 2px solid grey;
     border-radius: 12px;
 }
 
 QWidget#widget_Classic[selected=&quot;true&quot;],
 QWidget#widget_Castom[selected=&quot;true&quot;] {
-    border: 2px solid green;
+    border: 2px solid white;
 }
-</string>
+
+QWidget#widget_Classic[confirmed=&quot;true&quot;],
+QWidget#widget_Castom[confirmed=&quot;true&quot;] {
+    border: 2px solid green;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
