@@ -16,7 +16,11 @@ public:
     Style(QWidget* parent = nullptr);
     ~Style();
 
+private:
+    void applySelected(QWidget* widget, bool on);
+    void mousePressEvent(QMouseEvent* event);
     void OnAnimFinished();
+
 private slots:
     void on_btnStyle_clicked();
 
