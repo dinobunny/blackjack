@@ -14,7 +14,8 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/assets/ui/assets/ui/game.png);</string>
+   <string notr="true">border-image: url(:/assets/ui/assets/ui/game.png);
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="horizontalLayoutWidget">
@@ -125,7 +126,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btnBackMenu">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -145,7 +146,7 @@
      <string>Back</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="btnHit">
     <property name="geometry">
      <rect>
       <x>590</x>
@@ -165,7 +166,7 @@
      <string>Hit</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="btnStand">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -195,52 +196,8 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0">
-      <widget class="QLabel" name="playercurrentLabel">
-       <property name="palette">
-        <palette>
-         <active>
-          <colorrole role="WindowText">
-           <brush brushstyle="SolidPattern">
-            <color alpha="255">
-             <red>255</red>
-             <green>255</green>
-             <blue>255</blue>
-            </color>
-           </brush>
-          </colorrole>
-         </active>
-         <inactive>
-          <colorrole role="WindowText">
-           <brush brushstyle="SolidPattern">
-            <color alpha="255">
-             <red>255</red>
-             <green>255</green>
-             <blue>255</blue>
-            </color>
-           </brush>
-          </colorrole>
-         </inactive>
-         <disabled>
-          <colorrole role="WindowText">
-           <brush brushstyle="SolidPattern">
-            <color alpha="255">
-             <red>120</red>
-             <green>120</green>
-             <blue>120</blue>
-            </color>
-           </brush>
-          </colorrole>
-         </disabled>
-        </palette>
-       </property>
-       <property name="text">
-        <string>Current Cardl: 0</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="playerBetLabel">
+      <widget class="QLabel" name="labelBet">
        <property name="palette">
         <palette>
          <active>
@@ -283,8 +240,8 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="playercurrentLabel_2">
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelBalance">
        <property name="palette">
         <palette>
          <active>
@@ -332,17 +289,23 @@
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>800</x>
       <y>700</y>
-      <width>641</width>
+      <width>561</width>
       <height>91</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <bold>true</bold>
+     </font>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QPushButton" name="pushButton_14">
+        <widget class="QPushButton" name="btnChip5">
          <property name="minimumSize">
           <size>
            <width>60</width>
@@ -351,25 +314,9 @@
          </property>
          <property name="font">
           <font>
+           <pointsize>16</pointsize>
            <bold>true</bold>
-           <stylestrategy>PreferDefault</stylestrategy>
           </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">image: url(:/assets/chips/assets/chips/chipBlue.png);</string>
-         </property>
-         <property name="text">
-          <string>Repeat</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_13">
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
          </property>
          <property name="styleSheet">
           <string notr="true">image: url(:/assets/chips/assets/chips/chipBlackWhite.png);</string>
@@ -380,12 +327,18 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_15">
+        <widget class="QPushButton" name="btnChip10">
          <property name="minimumSize">
           <size>
            <width>60</width>
            <height>60</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <bold>true</bold>
+          </font>
          </property>
          <property name="styleSheet">
           <string notr="true">image: url(:/assets/chips/assets/chips/chipRedWhite.png);</string>
@@ -396,12 +349,18 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_16">
+        <widget class="QPushButton" name="btnChip25">
          <property name="minimumSize">
           <size>
            <width>60</width>
            <height>60</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <bold>true</bold>
+          </font>
          </property>
          <property name="styleSheet">
           <string notr="true">image: url(:/assets/chips/assets/chips/chipGreenWhite.png);</string>
@@ -412,12 +371,18 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_12">
+        <widget class="QPushButton" name="btnChip50">
          <property name="minimumSize">
           <size>
            <width>60</width>
            <height>60</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <bold>true</bold>
+          </font>
          </property>
          <property name="styleSheet">
           <string notr="true">image: url(:/assets/chips/assets/chips/chipBlueWhite.png);</string>
@@ -427,50 +392,110 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_11">
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">image: url(:/assets/chips/assets/chips/chipGreen_border.png);</string>
-         </property>
-         <property name="text">
-          <string>Clear</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_13">
+   <widget class="QLabel" name="labelSelectedBet">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>390</y>
-      <width>70</width>
-      <height>70</height>
+      <x>630</x>
+      <y>370</y>
+      <width>100</width>
+      <height>100</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>248</x>
       <y>530</y>
-      <width>49</width>
-      <height>16</height>
+      <width>61</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnReapet">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>790</y>
+      <width>121</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Reapet</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnClear">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>690</y>
+      <width>121</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Clear</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_15">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>80</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDeal">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>690</y>
+      <width>121</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Deal</string>
     </property>
    </widget>
   </widget>

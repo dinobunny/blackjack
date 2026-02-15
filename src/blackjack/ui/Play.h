@@ -19,8 +19,19 @@ public:
     void back();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_btnBackMenu_clicked();
+    void on_btnDeal_clicked();
+
+    void OnChip5();
+    void OnChip10();
+    void OnChip25();
+    void OnChip50();
+
+private:
+    void SetBettingUi();
+    void SetPlayingUi();
 
 private:
     Ui::Play* ui;
+    int m_selectedBet = 0;
 };
