@@ -3,7 +3,6 @@
 
 namespace blackjack
 {
-
     std::string outcomeToString(Outcome outcome)
     {
         switch (outcome)
@@ -27,7 +26,7 @@ namespace blackjack
 
     BlackjackGame::BlackjackGame(const GameRules& rules)
         : rules_(rules), deck_(std::make_unique<Deck>(rules.numDecks)),
-        roundComplete_(false), handCount_(0)
+        roundComplete_(false)
     {
     }
 
@@ -41,7 +40,6 @@ namespace blackjack
         dealerHand_.clear();
         roundComplete_ = false;
         outcome_.reset();
-        handCount_ = 0;
 
         // Deal initial cards (player, dealer, player, dealer)
         playerHand_.addCard(deck_->deal());
@@ -49,7 +47,6 @@ namespace blackjack
         playerHand_.addCard(deck_->deal());
         dealerHand_.addCard(deck_->deal());
 
-        handCount_ = 2;
 
         // Check for immediate blackjack
         if (playerHand_.isBlackjack() || dealerHand_.isBlackjack())
@@ -67,7 +64,6 @@ namespace blackjack
         }
 
         playerHand_.addCard(deck_->deal());
-        handCount_++;
 
         // Check if player busts
         if (playerHand_.isBust())
@@ -79,7 +75,7 @@ namespace blackjack
 
         return true;
     }
-
+    
     void BlackjackGame::stand()
     {
         if (roundComplete_)
@@ -92,32 +88,6 @@ namespace blackjack
 
         roundComplete_ = true;
         outcome_ = determineOutcome();
-    }
-
-    bool BlackjackGame::doubleDown()
-    {
-        if (!canDoubleDown())
-        {
-            return false;
-        }
-
-        // Take one card and end turn
-        playerHand_.addCard(deck_->deal());
-        handCount_++;
-
-        if (playerHand_.isBust())
-        {
-            roundComplete_ = true;
-            outcome_ = Outcome::PLAYER_BUST;
-        }
-        else
-        {
-            playDealerHand();
-            roundComplete_ = true;
-            outcome_ = determineOutcome();
-        }
-
-        return true;
     }
 
     Outcome BlackjackGame::getOutcome() const
@@ -142,12 +112,6 @@ namespace blackjack
         return dealerHand_;
     }
 
-    bool BlackjackGame::canDoubleDown() const
-    {
-        // Can only double on first two cards
-        return !roundComplete_ && handCount_ == 2;
-    }
-
     void BlackjackGame::reset()
     {
         deck_->reset();
@@ -155,9 +119,8 @@ namespace blackjack
         dealerHand_.clear();
         roundComplete_ = false;
         outcome_.reset();
-        handCount_ = 0;
     }
-
+    
     void BlackjackGame::playDealerHand()
     {
         // Dealer must hit until 17 or higher

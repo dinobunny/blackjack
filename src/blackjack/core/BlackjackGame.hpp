@@ -32,9 +32,6 @@ namespace blackjack
         bool hit();
         void stand();
 
-        /** @return true if action was applied. */
-        bool doubleDown();
-
         bool isRoundComplete() const
         {
             return roundComplete_;
@@ -51,7 +48,6 @@ namespace blackjack
         /** hideHoleCard: true to show only upcard (e.g. during player turn). */
         Hand getDealerHand(bool hideHoleCard = false) const;
 
-        bool canDoubleDown() const;
         const GameRules& getRules() const
         {
             return rules_;
@@ -65,7 +61,6 @@ namespace blackjack
         Hand dealerHand_;
         bool roundComplete_;
         std::optional<Outcome> outcome_;
-        int handCount_;
 
         void playDealerHand();
         Outcome determineOutcome() const;

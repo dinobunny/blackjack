@@ -34,8 +34,6 @@
                 return "Q";
             case Rank::KING:
                 return "K";
-            case Rank::BACK:
-                return "1";
             default:
                 throw std::logic_error("Invalid rank");
             }
@@ -53,8 +51,6 @@
                 return "cardsClubs";
             case Suit::SPADES:
                 return "cardsSpades";
-            case Suit::RED:
-                return "cardsBack_red";
             default:
                 throw std::logic_error("Invalid suit");
             }
@@ -63,16 +59,6 @@
         std::string Card::toString() const
         {
             return getSuitString() + getRankString() + ".png";
-        }
-
-        std::string Card::toShortString() const//fantom
-        {
-            return std::string();
-        }
-
-        std::ostream& operator<<(std::ostream& os, const Card& card)//fantom
-        {
-            return os << card.toString();
         }
 
     } // namespace blackjack

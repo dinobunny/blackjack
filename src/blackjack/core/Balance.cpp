@@ -24,14 +24,9 @@ bool Balance::SetBet(int value)
 void Balance::Win()
 {
     balance += bet;
-    bet = 0;
 }
 
 void Balance::Lose()
 {
     balance -= bet;
-    if (balance < 0)
-        balance = 0;
-
-    bet = 0;
 }

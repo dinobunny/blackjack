@@ -10,7 +10,6 @@ namespace blackjack
 
     enum class Rank : uint8_t
     {
-        BACK = 0,  // Used for face-down cards
         ACE = 1,
         TWO = 2,
         THREE = 3,
@@ -28,7 +27,7 @@ namespace blackjack
 
     enum class Suit : uint8_t
     {
-        HEARTS, DIAMONDS, CLUBS, SPADES, RED
+        HEARTS, DIAMONDS, CLUBS, SPADES
     };
 
     /**
@@ -102,11 +101,6 @@ namespace blackjack
          */
         std::string toString() const;
 
-        /**
-         * @brief Get short string representation (e.g., "AS")
-         */
-        std::string toShortString() const;
-
         // Comparison operators
         constexpr bool operator==(const Card& other) const noexcept
         {
@@ -117,9 +111,6 @@ namespace blackjack
         {
             return !(*this == other);
         }
-
-        // Stream output
-        friend std::ostream& operator<<(std::ostream& os, const Card& card);
 
     private:
         Rank rank_;

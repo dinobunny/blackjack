@@ -42,7 +42,6 @@ namespace blackjack
         {
             return getTotal() > 21;
         }
-        bool canSplit() const;
         size_t size() const
         {
             return cards_.size();
@@ -55,12 +54,6 @@ namespace blackjack
         {
             return cards_;
         }
-        std::string toString() const;
-
-        /** @return Second card (first remains in this hand). @throws std::logic_error
-         * if not splittable. */
-        Card split();
-
     private:
         std::vector<Card> cards_;
     };
