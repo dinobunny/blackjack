@@ -75,7 +75,7 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>640</y>
+      <y>510</y>
       <width>711</width>
       <height>171</height>
      </rect>
@@ -142,13 +142,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Exit</string>
+     <string>Back</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>1060</x>
+      <x>590</x>
       <y>690</y>
       <width>121</width>
       <height>101</height>
@@ -168,7 +168,7 @@
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>1240</x>
+      <x>470</x>
       <y>690</y>
       <width>121</width>
       <height>101</height>
@@ -240,7 +240,7 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="playertotalLabel">
+      <widget class="QLabel" name="playerBetLabel">
        <property name="palette">
         <palette>
          <active>
@@ -279,7 +279,7 @@
         </palette>
        </property>
        <property name="text">
-        <string>Total: 0</string>
+        <string>Bet: 0</string>
        </property>
       </widget>
      </item>
@@ -332,10 +332,10 @@
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>330</y>
-      <width>701</width>
-      <height>181</height>
+      <x>750</x>
+      <y>700</y>
+      <width>641</width>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -345,8 +345,8 @@
         <widget class="QPushButton" name="pushButton_14">
          <property name="minimumSize">
           <size>
-           <width>114</width>
-           <height>169</height>
+           <width>60</width>
+           <height>60</height>
           </size>
          </property>
          <property name="font">
@@ -367,8 +367,8 @@
         <widget class="QPushButton" name="pushButton_13">
          <property name="minimumSize">
           <size>
-           <width>114</width>
-           <height>169</height>
+           <width>60</width>
+           <height>60</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -383,8 +383,8 @@
         <widget class="QPushButton" name="pushButton_15">
          <property name="minimumSize">
           <size>
-           <width>114</width>
-           <height>169</height>
+           <width>60</width>
+           <height>60</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -399,8 +399,8 @@
         <widget class="QPushButton" name="pushButton_16">
          <property name="minimumSize">
           <size>
-           <width>114</width>
-           <height>169</height>
+           <width>60</width>
+           <height>60</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -415,8 +415,8 @@
         <widget class="QPushButton" name="pushButton_12">
          <property name="minimumSize">
           <size>
-           <width>114</width>
-           <height>169</height>
+           <width>60</width>
+           <height>60</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -431,21 +431,47 @@
         <widget class="QPushButton" name="pushButton_11">
          <property name="minimumSize">
           <size>
-           <width>114</width>
-           <height>169</height>
+           <width>60</width>
+           <height>60</height>
           </size>
          </property>
          <property name="styleSheet">
           <string notr="true">image: url(:/assets/chips/assets/chips/chipGreen_border.png);</string>
          </property>
          <property name="text">
-          <string>Back</string>
+          <string>Clear</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>390</y>
+      <width>70</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>530</y>
+      <width>49</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

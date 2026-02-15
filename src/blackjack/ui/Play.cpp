@@ -1,4 +1,5 @@
 #include "Play.h"
+#include "Menu.h"
 #include "ui_Play.h"
 
 
@@ -12,5 +13,18 @@ Play::Play(QWidget* parent)
 Play::~Play()
 {
     delete ui;
+}
+
+
+void Play::back()
+{
+    auto* style = new Menu();
+    style->show();
+    this->close();
+}
+
+void Play::on_pushButton_clicked()
+{
+    back();
 }
 

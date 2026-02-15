@@ -16,6 +16,11 @@ public:
     Play(QWidget* parent = nullptr);
     ~Play();
 
+    void back();
+
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::Play* ui;
 };
