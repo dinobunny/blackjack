@@ -10,6 +10,7 @@ namespace blackjack
 
     enum class Rank : uint8_t
     {
+        BACK = 0,  // Used for face-down cards
         ACE = 1,
         TWO = 2,
         THREE = 3,
@@ -27,7 +28,7 @@ namespace blackjack
 
     enum class Suit : uint8_t
     {
-        HEARTS, DIAMONDS, CLUBS, SPADES
+        HEARTS, DIAMONDS, CLUBS, SPADES, RED
     };
 
     /**

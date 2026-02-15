@@ -1,5 +1,6 @@
 #pragma once
 #include <QString>
+#include <core/Card.hpp>
 
 namespace blackjack
 {
@@ -16,6 +17,7 @@ namespace blackjack
 
         static QString getCardsPath();
         
+        static QString BuildCardPath(const Card& card);
 
     private:
         inline static DeckStyle m_style = DeckStyle::Classic;

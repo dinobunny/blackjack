@@ -14,3 +14,8 @@ QString DeckSettings::getCardsPath()
 
     return ":/assets/cards/castom/";
 }
+
+QString blackjack::DeckSettings::BuildCardPath(const Card& card)
+{
+    return getCardsPath() + QString::fromStdString(card.toString());
+}
