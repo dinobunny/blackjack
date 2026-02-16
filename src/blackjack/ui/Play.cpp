@@ -2,13 +2,17 @@
 #include "Menu.h"
 #include "ui_Play.h"
 #include "DeckStyle.h"
-#include <format>
+
+#define NOMINMAX
+#include "../audio/PlaySound.h"
 
 Play::Play(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::Play)
 {
     ui->setupUi(this);
+
+    PlaySoundNew(LR"(assets/music/background_Music.mp3)", true);
 
     connect(ui->btnChip5, &QPushButton::clicked, this, &Play::OnChip5);
     connect(ui->btnChip10, &QPushButton::clicked, this, &Play::OnChip10);
@@ -40,10 +44,6 @@ void Play::back()
     this->close();
 }
 
-void Play::on_btnBackMenu_clicked()
-{
-    back();
-}
 
 void Play::OnChip5()
 {
@@ -141,11 +141,15 @@ void Play::SetPlayingUi()
     ui->btnChip50->setEnabled(false);
 }
 
+
+void Play::on_btnBackMenu_clicked()
+{
+    back();
+}
 void Play::on_btnDeal_clicked()
 {
     SetPlayingUi();
 }
-
 void Play::on_btnClear_clicked()
 {
     balance.resetBet();
