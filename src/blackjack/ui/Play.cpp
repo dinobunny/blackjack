@@ -88,14 +88,15 @@ void Play::OnChip50()
 
 void Play::SetBettingUi()
 {
-    if (balance.GetBalance() < 5)
+    if (balance.GetBalance() < static_cast<int>(blackjack::GameRules::Bet::Five))
     {
         back();
     }
 
-    ui->btnChip10->setEnabled(balance.GetBalance() >= 10);
-    ui->btnChip25->setEnabled(balance.GetBalance() >= 25);
-    ui->btnChip50->setEnabled(balance.GetBalance() >= 50);
+    ui->btnChip5->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Five));
+    ui->btnChip10->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Ten));
+    ui->btnChip25->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::TwentyFive));
+    ui->btnChip50->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Fifty));
 
     ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
 
@@ -109,9 +110,10 @@ void Play::SetBettingUi()
     else
     {
         ui->btnReapet->show();
-        ui->btnDeal->hide();
         ui->btnClear->show();
+        ui->btnDeal->hide();
     }
+
 
 
     ui->btnHit->hide();
