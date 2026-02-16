@@ -49,7 +49,7 @@ void Play::OnChip5()
 {
     auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipBlackWhite.png)");
-    balance.SetBet(5);
+    balance.setBet(blackjack::GameRules::Bet::Five);
 
     ui->labelSelectedBet->setPixmap(chipPix);
     ui->btnDeal->setEnabled(true);
@@ -60,7 +60,7 @@ void Play::OnChip10()
     auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipRedWhite.png)");
 
-    balance.SetBet(10);
+    balance.setBet(blackjack::GameRules::Bet::Ten);
     ui->labelSelectedBet->setPixmap(chipPix);
     ui->btnDeal->setEnabled(true);
 }
@@ -70,7 +70,7 @@ void Play::OnChip25()
     auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipGreenWhite.png)");
 
-    balance.SetBet(25);
+    balance.setBet(blackjack::GameRules::Bet::TwentyFive);
     ui->labelSelectedBet->setPixmap(chipPix);
     ui->btnDeal->setEnabled(true);
 }
@@ -80,7 +80,7 @@ void Play::OnChip50()
     auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipBlueWhite.png)");
 
-    balance.SetBet(50);
+    balance.setBet(blackjack::GameRules::Bet::Fifty);
 
     ui->labelSelectedBet->setPixmap(chipPix);
     ui->btnDeal->setEnabled(true);
@@ -119,8 +119,8 @@ void Play::SetBettingUi()
 
     ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
 
-    balance.SetBet(0);
-    ui->labelSelectedBet->setText("0");
+    ui->btnDeal->setEnabled(balance.GetBet() > 0);
+    ui->btnClear->setEnabled(balance.GetBet() > 0);
 }
 
 void Play::SetPlayingUi()
@@ -147,7 +147,7 @@ void Play::on_btnDeal_clicked()
 
 void Play::on_btnClear_clicked()
 {
-    balance.ResetBet();
+    balance.resetBet();
     ui->btnReapet->hide();
     ui->btnDeal->show();
 }

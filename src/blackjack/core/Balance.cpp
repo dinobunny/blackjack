@@ -1,36 +1,42 @@
 #include "Balance.hpp"
 
-int Balance::GetBalance() const
+Balance::Balance(int initialBalance) noexcept
+    : m_balance(initialBalance)
 {
-    return balance;
 }
 
-int Balance::GetBet() const
+int Balance::GetBalance() const noexcept
 {
-    return bet;
+    return m_balance;
 }
 
-void Balance::SetBet(int value)
+int Balance::GetBet() const noexcept
 {
-    bet = value;
+    return m_bet;
 }
 
-void Balance::ResetBet()
+void Balance::resetBet() noexcept
 {
-    bet = 0;
+    m_bet = 0;
 }
 
-void Balance::Win()
+void Balance::lose() noexcept
 {
-    balance += bet;
+    m_balance -= m_bet;
 }
 
-void Balance::Lose()
+void Balance::win(int amount) noexcept
 {
-    balance -= bet;
+    m_balance += amount;
 }
 
-void Balance::BlackJack()
+bool Balance::setBet(blackjack::GameRules::Bet bet) noexcept
 {
-    balance += (bet * 2);
+    int value = static_cast<int>(bet);
+
+    if (value > m_balance)
+        return false;
+
+    m_bet = value;
+    return true;
 }

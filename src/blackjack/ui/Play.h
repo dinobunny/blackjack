@@ -1,7 +1,9 @@
 #pragma once
 #include <QMainWindow>
 #include "core\Balance.hpp"
-
+#include <QLabel>
+#include <core\GameRules.hpp>
+#include <core\BlackjackGame.hpp>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -38,4 +40,10 @@ private:
 private:
     Ui::Play* ui;
     Balance balance;
+
+    blackjack::BlackjackGame game_;
+
+    std::vector<QLabel*> playerLabels_;
+    std::vector<QLabel*> dealerLabels_;
+
 };
