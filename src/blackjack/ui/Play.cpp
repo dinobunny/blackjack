@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "ui_Play.h"
 #include "DeckStyle.h"
+#include <QPropertyAnimation>
 
 #define NOMINMAX
 #include "../audio/PlaySound.h"
@@ -21,7 +22,7 @@ Play::Play(QWidget* parent)
     connect(ui->btnChip10, &QPushButton::clicked, this, &Play::OnChip10);
     connect(ui->btnChip25, &QPushButton::clicked, this, &Play::OnChip25);
     connect(ui->btnChip50, &QPushButton::clicked, this, &Play::OnChip50);
-    
+
     QString path = blackjack::DeckSettings::getCardsPath() + "cardBack_red1.png";
     ui->label_deck->setPixmap(QPixmap(path));
 
@@ -144,20 +145,132 @@ void Play::on_btnBackMenu_clicked()
 {
     back();
 }
-void Play::on_btnDeal_clicked()
+
+void Play::on_btnStand_clicked()
 {
+    if (game_.isRoundComplete())
+        return;
+
+    PlaySoundNew(LR"(assets\music\click.mp3)", true);
+    game_.stand();
+
+    renderDealerHand(false);
+    renderPlayerHand();
+
+    const auto outcome = game_.getOutcome();
+    applyOutcome(outcome);
+}
+void Play::on_btnReapet_clicked()
+{
+    if (balance.GetBet() <= 0)
+        return;
+
     SetPlayingUi();
+    ClearHandsUi();
+    game_.startRound();
+    PlaySoundNew(LR"(audio\click.mp3)", true);
+
+    renderDealerHand(true);
+    PlaySoundNew(LR"(audio\dealing.mp3)", true);
+    renderPlayerHand();
+    PlaySoundNew(LR"(audio\dealing.mp3)", true);
+
+    if (game_.isRoundComplete())
+        applyOutcome(game_.getOutcome());
 }
 void Play::on_btnClear_clicked()
 {
+    PlaySoundNew(LR"(audio\click.mp3)", true);
     balance.resetBet();
     ui->btnReapet->hide();
     ui->btnDeal->show();
 }
+void Play::on_btnHit_clicked()
+{
+    if (!game_.hit())
+        return;
+    PlaySoundNew(LR"(audio\click.mp3)", true);
 
+    renderPlayerHand();
+    PlaySoundNew(LR"(audio\dealing.mp3)", true);
+
+    if (game_.isRoundComplete())
+    {
+        renderDealerHand(false);
+        const auto outcome = game_.getOutcome();
+        applyOutcome(outcome);
+    }
+}
+void Play::on_btnDeal_clicked()
+{
+    if (balance.GetBet() <= 0)
+        return;
+
+    SetPlayingUi();
+    ClearHandsUi();
+    game_.startRound();
+
+    PlaySoundNew(LR"(audio\click.mp3)", true);
+
+    renderDealerHand(true);
+    PlaySoundNew(LR"(audio\dealing.mp3)", true);
+    renderPlayerHand();
+    PlaySoundNew(LR"(audio\dealing.mp3)", true);
+
+    if (game_.isRoundComplete())
+        applyOutcome(game_.getOutcome());
+}
+
+QLabel* Play::CreateFlyingCard(const QPixmap& px)
+{
+    auto* card = new QLabel(this);
+    card->setPixmap(px);
+    card->resize(px.size());
+
+    const QPoint start = ui->label_deck->mapTo(this, QPoint(0, 0));
+    const int offsetX = (ui->label_deck->width() - card->width()) / 2;
+    const int offsetY = (ui->label_deck->height() - card->height()) / 2;
+    const QPoint centered = start + QPoint(offsetX, offsetY);
+
+    card->move(centered);
+    card->show();
+    card->raise();
+
+    return card;
+}
+
+void Play::AnimateCardTo(QLabel* flying, QLabel* target)
+{
+    const QPoint end = target->mapTo(this, QPoint(0, 0));
+
+    auto* anim = new QPropertyAnimation(flying, "pos", this);
+    anim->setDuration(250);
+    anim->setStartValue(flying->pos());
+    anim->setEndValue(end);
+    anim->setEasingCurve(QEasingCurve::OutCubic);
+
+    connect(anim, &QPropertyAnimation::finished, this, [=] ()
+            {
+                target->setPixmap(flying->pixmap());
+                flying->deleteLater();
+            });
+
+    anim->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void Play::ClearHandsUi()
+{
+    for (auto* l : playerLabels_)
+        l->clear();
+
+    for (auto* l : dealerLabels_)
+        l->clear();
+}
 void Play::renderHand(const blackjack::Hand& hand,
                       const std::vector<QLabel*>& labels)
 {
+    constexpr size_t LAST = 1;
+
     const auto& cards = hand.getCards();
     const size_t count = std::min(cards.size(), labels.size());
 
@@ -167,11 +280,21 @@ void Play::renderHand(const blackjack::Hand& hand,
     for (size_t i = 0; i < count; ++i)
     {
         QPixmap px(blackjack::DeckSettings::BuildCardPath(cards [i]));
-        if (!px.isNull())
+        if (px.isNull())
+            continue;
+
+        const bool isLast = (i == count - LAST);
+
+        if (isLast && labels [i]->pixmap().isNull())
+        {
+            AnimateCardTo(CreateFlyingCard(px), labels [i]);
+        }
+        else
+        {
             labels [i]->setPixmap(px);
+        }
     }
 }
-
 void Play::renderDealerHand(bool hideHoleCard)
 {
     const auto dealer = game_.getDealerHand(hideHoleCard);
@@ -180,7 +303,6 @@ void Play::renderDealerHand(bool hideHoleCard)
     ui->label_15->setText(
         "Dealer: " + QString::number(dealer.getTotal()));
 }
-
 void Play::renderPlayerHand()
 {
     const auto& player = game_.getPlayerHand();
@@ -190,78 +312,30 @@ void Play::renderPlayerHand()
         "Player: " + QString::number(player.getTotal()));
 }
 
+void Play::applyOutcome(blackjack::Outcome outcome)
+{
+    const int bet = balance.GetBet();
+    const int payout = static_cast<int>(bet * rules.blackjackPayout);
 
-//void Play::on_btnDeal_clicked()
-//{
-//    if (balance.GetBet() <= 0)
-//        return;
-//
-//    SetPlayingUi();
-//    ClearHandsUi();
-//    game_.startRound();
-//
-//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
-//
-//    renderDealerHand(true);
-//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
-//    renderPlayerHand();
-//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
-//
-//    if (game_.isRoundComplete())
-//        applyOutcome(game_.getOutcome());
-//}
-//void Play::on_btnStand_clicked()
-//{
-//    if (game_.isRoundComplete())
-//        return;
-//
-//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
-//    game_.stand();
-//
-//    renderDealerHand(false);
-//    renderPlayerHand();
-//
-//    const auto outcome = game_.getOutcome();
-//    applyOutcome(outcome);
-//}
-//void Play::on_btnReapet_clicked()
-//{
-//    if (balance.GetBet() <= 0)
-//        return;
-//
-//    SetPlayingUi();
-//    ClearHandsUi();
-//    game_.startRound();
-//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
-//
-//    renderDealerHand(true);
-//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
-//    renderPlayerHand();
-//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
-//
-//    if (game_.isRoundComplete())
-//        applyOutcome(game_.getOutcome());
-//}
-//void Play::on_btnClear_clicked()
-//{
-//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
-//    balance.ResetBet();
-//    ui->btnReapet->hide();
-//    ui->btnDeal->show();
-//}
-//void Play::on_btnHit_clicked()
-//{
-//    if (!game_.hit())
-//        return;
-//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
-//
-//    renderPlayerHand();
-//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
-//
-//    if (game_.isRoundComplete())
-//    {
-//        renderDealerHand(false);
-//        const auto outcome = game_.getOutcome();
-//        applyOutcome(outcome);
-//    }
-//}
+    switch (outcome)
+    {
+    case blackjack::Outcome::PUSH:
+        break;
+
+    case blackjack::Outcome::PLAYER_BLACKJACK:
+        balance.win(bet + payout);
+        break;
+
+    case blackjack::Outcome::PLAYER_WIN:
+    case blackjack::Outcome::DEALER_BUST:
+        balance.win(bet);
+        break;
+
+    default:
+        balance.lose();
+        break;
+    }
+
+    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
+    SetBettingUi();
+}

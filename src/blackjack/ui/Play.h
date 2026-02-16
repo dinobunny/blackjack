@@ -26,6 +26,10 @@ private slots:
     void on_btnBackMenu_clicked();
     void on_btnDeal_clicked();
 
+    void on_btnStand_clicked();
+
+    void on_btnReapet_clicked();
+
     void OnChip5();
     void OnChip10();
     void OnChip25();
@@ -33,11 +37,21 @@ private slots:
 
     void on_btnClear_clicked();
 
+    void on_btnHit_clicked();
+
+    void ClearHandsUi();
+
+    QLabel* CreateFlyingCard(const QPixmap& px);
+
+    void AnimateCardTo(QLabel* flying, QLabel* target);
+
     void renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels);
 
     void renderDealerHand(bool hideHoleCard);
 
     void renderPlayerHand();
+
+    void applyOutcome(blackjack::Outcome outcome);
 
 private:
     void SetBettingUi();
@@ -48,7 +62,7 @@ private:
     Balance balance;
 
     blackjack::BlackjackGame game_;
-
+    blackjack::GameRules rules;
     std::vector<QLabel*> playerLabels_;
     std::vector<QLabel*> dealerLabels_;
 
