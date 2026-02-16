@@ -1,5 +1,7 @@
 #pragma once
 #include <QMainWindow>
+#include "core\Balance.hpp"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -27,11 +29,13 @@ private slots:
     void OnChip25();
     void OnChip50();
 
+    void on_btnClear_clicked();
+
 private:
     void SetBettingUi();
     void SetPlayingUi();
 
 private:
     Ui::Play* ui;
-    int m_selectedBet = 0;
+    Balance balance;
 };

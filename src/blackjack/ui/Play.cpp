@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "ui_Play.h"
 
+
 Play::Play(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::Play)
@@ -39,7 +40,7 @@ void Play::OnChip5()
 {
     auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipBlackWhite.png)");
-    m_selectedBet = 5;
+    balance.SetBet(5);
 
     ui->labelSelectedBet->setPixmap(chipPix);
     ui->btnDeal->setEnabled(true);
@@ -49,8 +50,8 @@ void Play::OnChip10()
 {
     auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipRedWhite.png)");
-    
-    m_selectedBet = 10;
+
+    balance.SetBet(10);
     ui->labelSelectedBet->setPixmap(chipPix);
     ui->btnDeal->setEnabled(true);
 }
@@ -60,7 +61,7 @@ void Play::OnChip25()
     auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipGreenWhite.png)");
 
-    m_selectedBet = 25;
+    balance.SetBet(25);
     ui->labelSelectedBet->setPixmap(chipPix);
     ui->btnDeal->setEnabled(true);
 }
@@ -70,7 +71,7 @@ void Play::OnChip50()
     auto* chip = new QLabel(this);
     QPixmap chipPix(R"(:/assets/chips/assets/chips/chipBlueWhite.png)");
 
-    m_selectedBet = 50;
+    balance.SetBet(50);
 
     ui->labelSelectedBet->setPixmap(chipPix);
     ui->btnDeal->setEnabled(true);
@@ -78,26 +79,36 @@ void Play::OnChip50()
 
 void Play::SetBettingUi()
 {
+    if (balance.GetBalance() < 5)
+    {
+        back();
+    }
+
+    ui->btnChip10->setEnabled(balance.GetBalance() >= 10);
+    ui->btnChip25->setEnabled(balance.GetBalance() >= 25);
+    ui->btnChip50->setEnabled(balance.GetBalance() >= 50);
+
+    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
+
     ui->btnDeal->show();
     ui->btnDeal->setEnabled(false);
 
     ui->btnHit->hide();
     ui->btnStand->hide();
 
-    ui->btnChip5->setEnabled(true);
-    ui->btnChip10->setEnabled(true);
-    ui->btnChip25->setEnabled(true);
-    ui->btnChip50->setEnabled(true);
+    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
 
-    m_selectedBet = 0;
+    balance.SetBet(0);
     ui->labelSelectedBet->setText("0");
 }
 
 void Play::SetPlayingUi()
 {
     ui->btnDeal->hide();
-    ui->labelBet->setText("Bet: " + QString::number(m_selectedBet));
-    ui->labelBalance->setText("Balance: " + QString::number(100 - m_selectedBet));
+    ui->btnClear->hide();
+
+    ui->labelBet->setText("Bet: " + QString::number(balance.GetBet()));
+    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance() - balance.GetBet()));
 
     ui->btnHit->show();
     ui->btnStand->show();
@@ -110,8 +121,11 @@ void Play::SetPlayingUi()
 
 void Play::on_btnDeal_clicked()
 {
-    if (m_selectedBet <= 0)
-        return;
-
     SetPlayingUi();
 }
+
+void Play::on_btnClear_clicked()
+{
+    balance.ResetBet();
+}
+
