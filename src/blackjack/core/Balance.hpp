@@ -4,7 +4,7 @@
 class Balance
 {
 public:
-    explicit Balance(int initialBalance = 1000) noexcept;
+    explicit Balance(int initialBalance = 100) noexcept;
 
     [[nodiscard]] int GetBalance() const noexcept;
     [[nodiscard]] int GetBet() const noexcept;
