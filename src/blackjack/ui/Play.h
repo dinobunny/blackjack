@@ -22,23 +22,6 @@ public:
 
     void back();
 
-private slots:
-    void on_btnBackMenu_clicked();
-    void on_btnDeal_clicked();
-
-    void on_btnStand_clicked();
-
-    void on_btnReapet_clicked();
-
-    void OnChip5();
-    void OnChip10();
-    void OnChip25();
-    void OnChip50();
-
-    void on_btnClear_clicked();
-
-    void on_btnHit_clicked();
-
     void ClearHandsUi();
 
     QLabel* CreateFlyingCard(const QPixmap& px);
@@ -52,6 +35,19 @@ private slots:
     void renderPlayerHand();
 
     void applyOutcome(blackjack::Outcome outcome);
+
+private slots:
+    void on_btnBackMenu_clicked();
+    void on_btnDeal_clicked();
+    void on_btnStand_clicked();
+    void on_btnClear_clicked();
+    void on_btnHit_clicked();
+    void on_btnReapet_clicked();
+
+    void OnChip5();
+    void OnChip10();
+    void OnChip25();
+    void OnChip50();
 
 private:
     void SetBettingUi();
