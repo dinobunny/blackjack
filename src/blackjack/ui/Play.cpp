@@ -12,7 +12,7 @@ Play::Play(QWidget* parent)
 {
     ui->setupUi(this);
 
-    PlaySoundNew(LR"(assets/music/background_Music.mp3)", true);
+    PlaySoundNew(LR"(audio/background_Music.mp3)", true);
 
     connect(ui->btnChip5, &QPushButton::clicked, this, &Play::OnChip5);
     connect(ui->btnChip10, &QPushButton::clicked, this, &Play::OnChip10);

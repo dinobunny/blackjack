@@ -79,7 +79,8 @@
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\3rd-party\DependenciesDll\*" "$(SolutionDir)_bin\$(Platform)\$(Configuration)\" /E /I /Y</Command>
+      <Command>xcopy "$(ProjectDir)..\..\3rd-party\DependenciesDll\*" "$(SolutionDir)_bin\$(Platform)\$(Configuration)\" /E /I /Y
+xcopy "$(ProjectDir)..\..\3rd-party\DependenciesAudio\*" "$(SolutionDir)_bin\$(Platform)\$(Configuration)\" /E /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
