@@ -14,6 +14,9 @@ Play::Play(QWidget* parent)
 
     PlaySoundNew(LR"(audio/background_Music.mp3)", true);
 
+    playerLabels_ = { ui->player_1, ui->player_2, ui->player_3, ui->player_4, ui->player_5, ui->player_6 };
+    dealerLabels_ = { ui->dealer_1, ui->dealer_2, ui->dealer_3, ui->dealer_4, ui->dealer_5, ui->dealer_6 };
+
     connect(ui->btnChip5, &QPushButton::clicked, this, &Play::OnChip5);
     connect(ui->btnChip10, &QPushButton::clicked, this, &Play::OnChip10);
     connect(ui->btnChip25, &QPushButton::clicked, this, &Play::OnChip25);
@@ -157,3 +160,79 @@ void Play::on_btnClear_clicked()
     ui->btnDeal->show();
 }
 
+
+
+//void Play::on_btnDeal_clicked()
+//{
+//    if (balance.GetBet() <= 0)
+//        return;
+//
+//    SetPlayingUi();
+//    ClearHandsUi();
+//    game_.startRound();
+//
+//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
+//
+//    renderDealerHand(true);
+//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
+//    renderPlayerHand();
+//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
+//
+//    if (game_.isRoundComplete())
+//        applyOutcome(game_.getOutcome());
+//}
+//void Play::on_btnStand_clicked()
+//{
+//    if (game_.isRoundComplete())
+//        return;
+//
+//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
+//    game_.stand();
+//
+//    renderDealerHand(false);
+//    renderPlayerHand();
+//
+//    const auto outcome = game_.getOutcome();
+//    applyOutcome(outcome);
+//}
+//void Play::on_btnReapet_clicked()
+//{
+//    if (balance.GetBet() <= 0)
+//        return;
+//
+//    SetPlayingUi();
+//    ClearHandsUi();
+//    game_.startRound();
+//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
+//
+//    renderDealerHand(true);
+//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
+//    renderPlayerHand();
+//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
+//
+//    if (game_.isRoundComplete())
+//        applyOutcome(game_.getOutcome());
+//}
+//void Play::on_btnClear_clicked()
+//{
+//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
+//    balance.ResetBet();
+//    ui->btnReapet->hide();
+//    ui->btnDeal->show();
+//}
+//void Play::on_btnHit_clicked()
+//{
+//    if (!game_.hit())
+//        return;
+//    PlaySoundNew(LR"(assets\music\click.mp3)", true);
+//
+//    renderPlayerHand();
+//    PlaySoundNew(LR"(assets\music\dealing.mp3)", true);
+//
+//    if (game_.isRoundComplete())
+//    {
+//        renderDealerHand(false);
+//        const auto outcome = game_.getOutcome();
+//        applyOutcome(outcome);
+//    }
+//}
