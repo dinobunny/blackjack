@@ -114,8 +114,6 @@ void Play::SetBettingUi()
         ui->btnDeal->hide();
     }
 
-
-
     ui->btnHit->hide();
     ui->btnStand->hide();
 
@@ -129,9 +127,10 @@ void Play::SetPlayingUi()
 {
     ui->btnDeal->hide();
     ui->btnClear->hide();
+    ui->btnReapet->hide();
 
     ui->labelBet->setText("Bet: " + QString::number(balance.GetBet()));
-    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance() - balance.GetBet()));
+    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
 
     ui->btnHit->show();
     ui->btnStand->show();
