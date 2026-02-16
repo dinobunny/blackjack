@@ -10,9 +10,9 @@ void DeckSettings::SetStyle(DeckStyle style)noexcept
 QString DeckSettings::getCardsPath()
 {
     if (m_style == DeckStyle::Classic)
-        return ":/assets/cards/classic/";
+        return R"(:/assets/cards/classic/assets/cards/classic/)";
 
-    return ":/assets/cards/castom/";
+    return R"(:/assets/cards/castom/assets/cards/castom/)";
 }
 
 QString blackjack::DeckSettings::BuildCardPath(const Card& card)

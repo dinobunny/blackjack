@@ -1,7 +1,8 @@
 #include "Play.h"
 #include "Menu.h"
 #include "ui_Play.h"
-
+#include "DeckStyle.h"
+#include <format>
 
 Play::Play(QWidget* parent)
     : QMainWindow(parent)
@@ -13,6 +14,14 @@ Play::Play(QWidget* parent)
     connect(ui->btnChip10, &QPushButton::clicked, this, &Play::OnChip10);
     connect(ui->btnChip25, &QPushButton::clicked, this, &Play::OnChip25);
     connect(ui->btnChip50, &QPushButton::clicked, this, &Play::OnChip50);
+    
+    QString path = QString("%1%2")
+        .arg((blackjack::DeckSettings::getCardsPath()))
+        .arg("cardBack_red1.png");
+
+    QPixmap bg(path);
+    ui->label_deck->setPixmap(bg);
+
 
     SetBettingUi();
 }
