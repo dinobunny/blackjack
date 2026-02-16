@@ -10,15 +10,14 @@ int Balance::GetBet() const
     return bet;
 }
 
-bool Balance::SetBet(int value)
+void Balance::SetBet(int value)
 {
-    if (value <= 0)
-        return false;
-    if (value > balance)
-        return false;
-
     bet = value;
-    return true;
+}
+
+void Balance::ResetBet()
+{
+    bet = 0;
 }
 
 void Balance::Win()
@@ -30,3 +29,4 @@ void Balance::Lose()
 {
     balance -= bet;
 }
+

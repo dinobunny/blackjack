@@ -6,8 +6,8 @@ public:
     int GetBalance() const;
     int GetBet() const;
 
-    bool SetBet(int value);
-
+    void SetBet(int value);
+    void ResetBet();
     void Win();
     void Lose();
 
