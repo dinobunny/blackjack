@@ -23,8 +23,10 @@ Play::~Play()
 
 void Play::back()
 {
-    auto* style = new Menu();
-    style->show();
+    auto* menu = new Menu();
+    menu->show();
+
+    setAttribute(Qt::WA_DeleteOnClose);
     this->close();
 }
 
