@@ -33,6 +33,12 @@ private slots:
 
     void on_btnClear_clicked();
 
+    void renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels);
+
+    void renderDealerHand(bool hideHoleCard);
+
+    void renderPlayerHand();
+
 private:
     void SetBettingUi();
     void SetPlayingUi();

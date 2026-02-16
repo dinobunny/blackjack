@@ -155,6 +155,40 @@ void Play::on_btnClear_clicked()
     ui->btnDeal->show();
 }
 
+void Play::renderHand(const blackjack::Hand& hand,
+                      const std::vector<QLabel*>& labels)
+{
+    const auto& cards = hand.getCards();
+    const size_t count = std::min(cards.size(), labels.size());
+
+    for (size_t i = count; i < labels.size(); ++i)
+        labels [i]->clear();
+
+    for (size_t i = 0; i < count; ++i)
+    {
+        QPixmap px(blackjack::DeckSettings::BuildCardPath(cards [i]));
+        if (!px.isNull())
+            labels [i]->setPixmap(px);
+    }
+}
+
+void Play::renderDealerHand(bool hideHoleCard)
+{
+    const auto dealer = game_.getDealerHand(hideHoleCard);
+    renderHand(dealer, dealerLabels_);
+
+    ui->label_15->setText(
+        "Dealer: " + QString::number(dealer.getTotal()));
+}
+
+void Play::renderPlayerHand()
+{
+    const auto& player = game_.getPlayerHand();
+    renderHand(player, playerLabels_);
+
+    ui->label_14->setText(
+        "Player: " + QString::number(player.getTotal()));
+}
 
 
 //void Play::on_btnDeal_clicked()
