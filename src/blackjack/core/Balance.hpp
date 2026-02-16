@@ -8,8 +8,10 @@ public:
 
     void SetBet(int value);
     void ResetBet();
+
     void Win();
     void Lose();
+    void BlackJack();
 
 private:
     int balance = 100;

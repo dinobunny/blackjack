@@ -30,3 +30,7 @@ void Balance::Lose()
     balance -= bet;
 }
 
+void Balance::BlackJack()
+{
+    balance += (bet * 2);
+}
