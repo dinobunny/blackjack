@@ -90,8 +90,20 @@ void Play::SetBettingUi()
 
     ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
 
-    ui->btnDeal->show();
-    ui->btnDeal->setEnabled(false);
+    if (balance.GetBet() == 0)
+    {
+        ui->btnReapet->hide();
+        ui->btnClear->setEnabled(false);
+        ui->btnDeal->show();
+        ui->btnDeal->setEnabled(false);
+    }
+    else
+    {
+        ui->btnReapet->show();
+        ui->btnDeal->hide();
+        ui->btnClear->show();
+    }
+
 
     ui->btnHit->hide();
     ui->btnStand->hide();
@@ -127,5 +139,7 @@ void Play::on_btnDeal_clicked()
 void Play::on_btnClear_clicked()
 {
     balance.ResetBet();
+    ui->btnReapet->hide();
+    ui->btnDeal->show();
 }
 
