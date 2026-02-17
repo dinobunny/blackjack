@@ -5,7 +5,6 @@
 #include "ui_Menu.h"
 #include "utils/Navigation.h"
 
-
 #define NOMINMAX
 #include "../audio/PlaySound.h"
 
@@ -32,4 +31,3 @@ void Menu::on_btnPlay_clicked()
     PlaySoundNew(LR"(audio\click.mp3)", true);
     blackjack::NavigateTo<Play>(this);
 }
-
