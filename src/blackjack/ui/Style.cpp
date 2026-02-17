@@ -1,7 +1,7 @@
 #include "Style.h"
 #include "ui_Style.h"
 #include "Menu.h"
-#include "DeckStyle.h"
+#include "utils/DeckStyle.h"
 
 #include <QStyle>
 

@@ -1,7 +1,7 @@
 #include "Play.h"
 #include "Menu.h"
 #include "ui_Play.h"
-#include "DeckStyle.h"
+#include "utils/DeckStyle.h"
 #include <QPropertyAnimation>
 
 #define NOMINMAX
