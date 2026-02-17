@@ -1,70 +1,100 @@
 #include "PlaySound.h"
 
-void PlaySoundNew_Impl(const TCHAR* file)
-{ // implementation of file playback using DirectShow
+#include <Dshow.h>
+#include <cstdio>
 
-    IGraphBuilder* pGraph = NULL;
-    IMediaControl* pControl = NULL;
-    IMediaEvent* pEvent = NULL;
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "Strmiids.lib")
 
-    // Create the filter graph manager and query for interfaces.
-    HRESULT hr = CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER,
-                                  IID_IGraphBuilder, (void**) &pGraph);
-    if (FAILED(hr))
+namespace
+{
+    void PlaySoundNew_Impl(const TCHAR* file)
     {
-        printf("ERROR - Could not create the Filter Graph Manager.");
-        return;
-    }
+        IGraphBuilder* pGraph = nullptr;
+        IMediaControl* pControl = nullptr;
+        IMediaEvent* pEvent = nullptr;
 
-    hr = pGraph->QueryInterface(IID_IMediaControl, (void**) &pControl);
-    hr = pGraph->QueryInterface(IID_IMediaEvent, (void**) &pEvent);
+        // Create the filter graph manager and query for interfaces.
+        HRESULT hr = CoCreateInstance(
+            CLSID_FilterGraph,
+            nullptr,
+            CLSCTX_INPROC_SERVER,
+            IID_IGraphBuilder,
+            reinterpret_cast<void**>(&pGraph));
 
-    // Build the graph. 
-    hr = pGraph->RenderFile(file, NULL);
-    if (SUCCEEDED(hr))
-    {
-        // Run the graph.
-        hr = pControl->Run();
+        if (FAILED(hr) || pGraph == nullptr)
+        {
+            std::printf("ERROR - Could not create the Filter Graph Manager.");
+            return;
+        }
+
+        hr = pGraph->QueryInterface(IID_IMediaControl,
+                                    reinterpret_cast<void**>(&pControl));
+        hr = pGraph->QueryInterface(IID_IMediaEvent,
+                                    reinterpret_cast<void**>(&pEvent));
+
+        // Build the graph.
+        hr = pGraph->RenderFile(file, nullptr);
         if (SUCCEEDED(hr))
         {
-            // Wait for completion.
-            long evCode;
-            pEvent->WaitForCompletion(INFINITE, &evCode);
+            // Run the graph.
+            hr = pControl->Run();
+            if (SUCCEEDED(hr))
+            {
+                // Wait for completion.
+                long evCode = 0;
+                pEvent->WaitForCompletion(INFINITE, &evCode);
+            }
+        }
+        else
+        {
+            std::printf("RenderFile error 0x%x",
+                        static_cast<unsigned int>(hr));
+        }
+
+        if (pControl != nullptr)
+        {
+            pControl->Release();
+        }
+        if (pEvent != nullptr)
+        {
+            pEvent->Release();
+        }
+        if (pGraph != nullptr)
+        {
+            pGraph->Release();
         }
     }
-    else printf("RenderFile error 0x%x", (UINT) hr);
 
-    pControl->Release();
-    pEvent->Release();
-    pGraph->Release();
-}
-
-DWORD PlaySoundNew_ThreadProc(LPVOID lpThreadParameter)
-{ //function for background thread
-
-    HRESULT hr = CoInitialize(NULL); //the background thread also needs COM initialization
-    if (FAILED(hr))
+    DWORD WINAPI PlaySoundNew_ThreadProc(LPVOID lpThreadParameter)
     {
-        printf("ERROR - Could not initialize COM library");
-        return 1;
+        // function for background thread
+
+        const HRESULT hr = CoInitialize(nullptr); // the background thread also needs COM initialization
+        if (FAILED(hr))
+        {
+            std::printf("ERROR - Could not initialize COM library");
+            return 1;
+        }
+
+        const auto* file = static_cast<const TCHAR*>(lpThreadParameter);
+        PlaySoundNew_Impl(file);
+
+        CoUninitialize();
+        return 0;
     }
-
-    const TCHAR* file = (const TCHAR*) lpThreadParameter;
-    PlaySoundNew_Impl(file);
-
-    CoUninitialize();
-    return 0;
 }
 
 void PlaySoundNew(const TCHAR* file, bool async)
-{ //playing a file via DirectShow
+{
+    // playing a file via DirectShow
 
-    if (async == FALSE)
+    if (!async)
     {
-        PlaySoundNew_Impl(file); //synchronously        
+        PlaySoundNew_Impl(file); // synchronously
+        return;
     }
-    else
-    {
-        CreateThread(NULL, 0, PlaySoundNew_ThreadProc, (LPVOID) file, 0, NULL); //asynchronously
-    }
+
+    // asynchronously
+    CreateThread(nullptr, 0, PlaySoundNew_ThreadProc, const_cast<TCHAR*>(file), 0, nullptr);
 }
