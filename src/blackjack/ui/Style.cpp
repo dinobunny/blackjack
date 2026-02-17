@@ -5,6 +5,7 @@
 
 #include <QStyle>
 #include <utils/Navigation.h>
+#include <audio/PlaySound.h>
 
 Style::Style(QWidget* parent)
     : QMainWindow(parent)
@@ -22,6 +23,8 @@ Style::~Style()
 
 void Style::applySelected(QWidget* widget, const char* prop, bool on)
 {
+    PlaySoundNew(LR"(audio\click.mp3)", true);
+
     widget->setProperty(prop, on);
     widget->style()->unpolish(widget);
     widget->style()->polish(widget);
@@ -30,6 +33,8 @@ void Style::applySelected(QWidget* widget, const char* prop, bool on)
 
 void Style::on_btnSelect_clicked()
 {
+    PlaySoundNew(LR"(audio\click.mp3)", true);
+
     const bool classic = ui->widget_Classic->property("selected").toBool();
     const bool custom = ui->widget_Castom->property("selected").toBool();
 
@@ -46,6 +51,7 @@ void Style::on_btnSelect_clicked()
 
 void Style::on_btnBack_clicked()
 {
+    PlaySoundNew(LR"(audio\click.mp3)", true);
     blackjack::NavigateTo<Menu>(this);
 }
 
