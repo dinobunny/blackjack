@@ -112,18 +112,20 @@ xcopy "$(ProjectDir)..\..\3rd-party\DependenciesAudio\*" "$(SolutionDir)_bin\$(P
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animation\animation.cpp" />
     <ClCompile Include="audio\PlaySound.cpp" />
     <ClCompile Include="core\Balance.cpp" />
     <ClCompile Include="core\BlackjackGame.cpp" />
     <ClCompile Include="core\Card.cpp" />
     <ClCompile Include="core\Deck.cpp" />
     <ClCompile Include="core\Hand.cpp" />
-    <ClCompile Include="DeckStyle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ui\Menu.cpp" />
     <ClCompile Include="ui\Play.cpp" />
     <ClCompile Include="ui\Start.cpp" />
     <ClCompile Include="ui\Style.cpp" />
+    <ClCompile Include="utils\DeckStyle.cpp" />
+    <ClCompile Include="utils\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ui\Start.h" />
@@ -138,6 +140,9 @@ xcopy "$(ProjectDir)..\..\3rd-party\DependenciesAudio\*" "$(SolutionDir)_bin\$(P
     <QtRcc Include="images.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="utils\Navigation.h" />
+    <ClInclude Include="utils\Util.h" />
+    <QtMoc Include="animation\animation.h" />
     <ClInclude Include="audio\PlaySound.h" />
     <ClInclude Include="core\Balance.hpp" />
     <ClInclude Include="core\BlackjackGame.hpp" />
@@ -145,7 +150,8 @@ xcopy "$(ProjectDir)..\..\3rd-party\DependenciesAudio\*" "$(SolutionDir)_bin\$(P
     <ClInclude Include="core\Deck.hpp" />
     <ClInclude Include="core\GameRules.hpp" />
     <ClInclude Include="core\Hand.hpp" />
-    <ClInclude Include="DeckStyle.h" />
+    <ClInclude Include="utils\Config_Constants.h" />
+    <ClInclude Include="utils\DeckStyle.h" />
     <QtMoc Include="ui\Play.h" />
     <QtMoc Include="ui\Style.h" />
     <QtMoc Include="ui\Menu.h" />

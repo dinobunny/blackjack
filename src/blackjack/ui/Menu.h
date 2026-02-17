@@ -16,15 +16,10 @@ public:
     Menu(QWidget* parent = nullptr);
     ~Menu();
 
-    void goStyle();
-    void goPlay();
-
-
 private slots:
     void on_btnStyle_clicked();
-
     void on_btnPlay_clicked();
 
 private:
-    Ui::Menu* ui;
+    Ui::Menu* m_ui;
 };

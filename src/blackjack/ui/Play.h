@@ -1,9 +1,11 @@
 #pragma once
-#include <QMainWindow>
-#include "core\Balance.hpp"
 #include <QLabel>
-#include <core\GameRules.hpp>
-#include <core\BlackjackGame.hpp>
+#include <QMainWindow>
+
+#include "core/Balance.hpp"
+#include "core/GameRules.hpp"
+#include "core/BlackjackGame.hpp"
+#include "animation/animation.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -20,14 +22,14 @@ public:
     Play(QWidget* parent = nullptr);
     ~Play();
 
-    void back();
 
 private slots:
     void on_btnBackMenu_clicked();
     void on_btnDeal_clicked();
-
     void on_btnStand_clicked();
-
+    void StartRound();
+    void on_btnClear_clicked();
+    void on_btnHit_clicked();
     void on_btnReapet_clicked();
 
     void OnChip5();
@@ -35,35 +37,29 @@ private slots:
     void OnChip25();
     void OnChip50();
 
-    void on_btnClear_clicked();
-
-    void on_btnHit_clicked();
-
-    void ClearHandsUi();
-
-    QLabel* CreateFlyingCard(const QPixmap& px);
-
-    void AnimateCardTo(QLabel* flying, QLabel* target);
-
-    void renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels);
-
-    void renderDealerHand(bool hideHoleCard);
-
-    void renderPlayerHand();
-
-    void applyOutcome(blackjack::Outcome outcome);
-
 private:
+
+    void ApplyChip(blackjack::GameRules::Bet bet, const QString& chipPath);
+    void ClearHandsUi();
+    void renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels);
+    void renderDealerHand(bool hideHoleCard);
+    void renderPlayerHand();
+    void applyOutcome(blackjack::Outcome outcome);
+    void InitAnimator();
+    void InitLabels();
+    void InitChipConnections();
+    void InitDeckBack();
     void SetBettingUi();
     void SetPlayingUi();
 
 private:
-    Ui::Play* ui;
-    Balance balance;
+    Ui::Play* m_ui;
+    blackjack::Balance m_balance;
 
-    blackjack::BlackjackGame game_;
-    blackjack::GameRules rules;
-    std::vector<QLabel*> playerLabels_;
-    std::vector<QLabel*> dealerLabels_;
+    blackjack::BlackjackGame m_game;
+    blackjack::GameRules m_rules;
+    std::vector<QLabel*> m_playerLabels;
+    std::vector<QLabel*> m_dealerLabels;
+    blackjack::Animator* m_animator = nullptr;
 
 };

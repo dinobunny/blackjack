@@ -3,41 +3,31 @@
 #include "Play.h"
 
 #include "ui_Menu.h"
+#include "utils/Navigation.h"
+
+#define NOMINMAX
+#include "../audio/PlaySound.h"
 
 Menu::Menu(QWidget* parent)
     : QMainWindow(parent)
-    , ui(new Ui::Menu)
+    , m_ui(new Ui::Menu)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 }
 
 Menu::~Menu()
 {
-    delete ui;
-}
-
-void Menu::goStyle()
-{
-    auto* menu = new Style();
-    menu->show();
-    this->close();
-}
-
-void Menu::goPlay()
-{
-    auto* menu = new Play();
-    menu->show();
-    this->close();
+    delete m_ui;
 }
 
 void Menu::on_btnStyle_clicked()
 {
-    goStyle();
+    blackjack::PlaySoundNew(LR"(audio\click.mp3)", true);
+    blackjack::NavigateTo<Style>(this);
 }
 
-    
 void Menu::on_btnPlay_clicked()
 {
-    goPlay();
+    blackjack::PlaySoundNew(LR"(audio\click.mp3)", true);
+    blackjack::NavigateTo<Play>(this);
 }
-

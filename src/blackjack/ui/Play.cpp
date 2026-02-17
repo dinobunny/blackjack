@@ -1,273 +1,214 @@
 #include "Play.h"
 #include "Menu.h"
 #include "ui_Play.h"
-#include "DeckStyle.h"
-#include <QPropertyAnimation>
+#include "utils/DeckStyle.h"
+
+#include <utils/Navigation.h>
+#include <utils/Config_Constants.h>
 
 #define NOMINMAX
-#include "../audio/PlaySound.h"
+#include <audio/PlaySound.h>
+using namespace blackjack;
+
+#pragma region Constructors
 
 Play::Play(QWidget* parent)
     : QMainWindow(parent)
-    , ui(new Ui::Play)
+    , m_ui(new Ui::Play)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
+    PlaySoundNew(blackjack::kBackgroundMusicSound, true);
 
-    PlaySoundNew(LR"(audio/background_Music.mp3)", true);
-
-    playerLabels_ = { ui->player_1, ui->player_2, ui->player_3, ui->player_4, ui->player_5, ui->player_6 };
-    dealerLabels_ = { ui->dealer_1, ui->dealer_2, ui->dealer_3, ui->dealer_4, ui->dealer_5, ui->dealer_6 };
-
-    connect(ui->btnChip5, &QPushButton::clicked, this, &Play::OnChip5);
-    connect(ui->btnChip10, &QPushButton::clicked, this, &Play::OnChip10);
-    connect(ui->btnChip25, &QPushButton::clicked, this, &Play::OnChip25);
-    connect(ui->btnChip50, &QPushButton::clicked, this, &Play::OnChip50);
-
-    QString path = blackjack::DeckSettings::getCardsPath() + "cardBack_red1.png";
-    ui->label_deck->setPixmap(QPixmap(path));
+    InitAnimator();
+    InitLabels();
+    InitChipConnections();
+    InitDeckBack();
 
     SetBettingUi();
 }
 
 Play::~Play()
 {
-    delete ui;
+    delete m_ui;
 }
 
-void Play::back()
+#pragma endregion
+
+#pragma region Betting
+void Play::ApplyChip(blackjack::GameRules::Bet bet, const QString& chipPath)
 {
-    auto* menu = new Menu();
-    menu->show();
+    m_balance.setBet(bet);
 
-    setAttribute(Qt::WA_DeleteOnClose);
-    this->close();
+    QPixmap chipPix(chipPath);
+    m_ui->labelSelectedBet->setPixmap(chipPix);
+    m_ui->btnDeal->setEnabled(true);
 }
-
 
 void Play::OnChip5()
 {
-    auto* chip = new QLabel(this);
-    QPixmap chipPix(R"(:/assets/chips/assets/chips/chipBlackWhite.png)");
-    balance.setBet(blackjack::GameRules::Bet::Five);
-
-    ui->labelSelectedBet->setPixmap(chipPix);
-    ui->btnDeal->setEnabled(true);
+    ApplyChip(blackjack::GameRules::Bet::Five, blackjack::kChipBlackWhitePath);
 }
 
 void Play::OnChip10()
 {
-    auto* chip = new QLabel(this);
-    QPixmap chipPix(R"(:/assets/chips/assets/chips/chipRedWhite.png)");
-
-    balance.setBet(blackjack::GameRules::Bet::Ten);
-    ui->labelSelectedBet->setPixmap(chipPix);
-    ui->btnDeal->setEnabled(true);
+    ApplyChip(blackjack::GameRules::Bet::Ten, blackjack::kChipRedWhitePath);
 }
 
 void Play::OnChip25()
 {
-    auto* chip = new QLabel(this);
-    QPixmap chipPix(R"(:/assets/chips/assets/chips/chipGreenWhite.png)");
-
-    balance.setBet(blackjack::GameRules::Bet::TwentyFive);
-    ui->labelSelectedBet->setPixmap(chipPix);
-    ui->btnDeal->setEnabled(true);
+    ApplyChip(blackjack::GameRules::Bet::TwentyFive, blackjack::kChipGreenWhitePath);
 }
 
 void Play::OnChip50()
 {
-    auto* chip = new QLabel(this);
-    QPixmap chipPix(R"(:/assets/chips/assets/chips/chipBlueWhite.png)");
-
-    balance.setBet(blackjack::GameRules::Bet::Fifty);
-
-    ui->labelSelectedBet->setPixmap(chipPix);
-    ui->btnDeal->setEnabled(true);
+    ApplyChip(blackjack::GameRules::Bet::Fifty, blackjack::kChipBlueWhitePath);
 }
 
 void Play::SetBettingUi()
 {
-    if (balance.GetBalance() < static_cast<int>(blackjack::GameRules::Bet::Five))
+    if (m_balance.GetBalance() < static_cast<int>(blackjack::GameRules::Bet::Five))
     {
-        back();
+        blackjack::NavigateTo<Menu>(this, true);
     }
 
-    ui->btnChip5->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Five));
-    ui->btnChip10->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Ten));
-    ui->btnChip25->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::TwentyFive));
-    ui->btnChip50->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Fifty));
+    m_ui->btnChip5->setEnabled(m_balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Five));
+    m_ui->btnChip10->setEnabled(m_balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Ten));
+    m_ui->btnChip25->setEnabled(m_balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::TwentyFive));
+    m_ui->btnChip50->setEnabled(m_balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Fifty));
 
-    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
+    m_ui->labelBalance->setText("Balance: " + QString::number(m_balance.GetBalance()));
 
-    if (balance.GetBet() == 0)
+    if (m_balance.GetBet() == 0)
     {
-        ui->btnReapet->hide();
-        ui->btnClear->setEnabled(false);
-        ui->btnDeal->show();
-        ui->btnDeal->setEnabled(false);
+        m_ui->btnReapet->hide();
+        m_ui->btnClear->setEnabled(false);
+        m_ui->btnDeal->show();
+        m_ui->btnDeal->setEnabled(false);
     }
     else
     {
-        ui->btnReapet->show();
-        ui->btnClear->show();
-        ui->btnDeal->hide();
+        m_ui->btnReapet->show();
+        m_ui->btnClear->show();
+        m_ui->btnDeal->hide();
     }
 
-    ui->btnHit->hide();
-    ui->btnStand->hide();
+    m_ui->btnHit->hide();
+    m_ui->btnStand->hide();
 
-    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
+    m_ui->labelBalance->setText("Balance: " + QString::number(m_balance.GetBalance()));
 
-    ui->btnDeal->setEnabled(balance.GetBet() > 0);
-    ui->btnClear->setEnabled(balance.GetBet() > 0);
+    m_ui->btnDeal->setEnabled(m_balance.GetBet() > 0);
+    m_ui->btnClear->setEnabled(m_balance.GetBet() > 0);
 }
 
 void Play::SetPlayingUi()
 {
-    ui->btnDeal->hide();
-    ui->btnClear->hide();
-    ui->btnReapet->hide();
+    m_ui->btnDeal->hide();
+    m_ui->btnClear->hide();
+    m_ui->btnReapet->hide();
 
-    ui->labelBet->setText("Bet: " + QString::number(balance.GetBet()));
-    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
+    m_ui->labelBet->setText("Bet: " + QString::number(m_balance.GetBet()));
+    m_ui->labelBalance->setText("Balance: " + QString::number(m_balance.GetBalance()));
 
-    ui->btnHit->show();
-    ui->btnStand->show();
+    m_ui->btnHit->show();
+    m_ui->btnStand->show();
 
-    ui->btnChip5->setEnabled(false);
-    ui->btnChip10->setEnabled(false);
-    ui->btnChip25->setEnabled(false);
-    ui->btnChip50->setEnabled(false);
+    m_ui->btnChip5->setEnabled(false);
+    m_ui->btnChip10->setEnabled(false);
+    m_ui->btnChip25->setEnabled(false);
+    m_ui->btnChip50->setEnabled(false);
 }
 
+#pragma endregion
 
-void Play::on_btnBackMenu_clicked()
+#pragma region Button
+void Play::StartRound()
 {
-    back();
+    SetPlayingUi();
+    ClearHandsUi();
+    m_game.startRound();
+
+    PlaySoundNew(blackjack::kClickSound, true);
+
+    renderDealerHand(true);
+    PlaySoundNew(blackjack::kDealingSound, true);
+
+    renderPlayerHand();
+    PlaySoundNew(blackjack::kDealingSound, true);
+
+    if (m_game.isRoundComplete())
+        applyOutcome(m_game.getOutcome());
 }
 
 void Play::on_btnStand_clicked()
 {
-    if (game_.isRoundComplete())
+    if (m_game.isRoundComplete())
         return;
 
-    PlaySoundNew(LR"(assets\music\click.mp3)", true);
-    game_.stand();
+    PlaySoundNew(blackjack::kClickSound, true);
+    m_game.stand();
 
     renderDealerHand(false);
     renderPlayerHand();
 
-    const auto outcome = game_.getOutcome();
+    const auto outcome = m_game.getOutcome();
     applyOutcome(outcome);
+}
+void Play::on_btnBackMenu_clicked()
+{
+    blackjack::NavigateTo<Menu>(this);
 }
 void Play::on_btnReapet_clicked()
 {
-    if (balance.GetBet() <= 0)
+    if (m_balance.GetBet() <= 0)
         return;
 
-    SetPlayingUi();
-    ClearHandsUi();
-    game_.startRound();
-    PlaySoundNew(LR"(audio\click.mp3)", true);
-
-    renderDealerHand(true);
-    PlaySoundNew(LR"(audio\dealing.mp3)", true);
-    renderPlayerHand();
-    PlaySoundNew(LR"(audio\dealing.mp3)", true);
-
-    if (game_.isRoundComplete())
-        applyOutcome(game_.getOutcome());
+    StartRound();
 }
 void Play::on_btnClear_clicked()
 {
-    PlaySoundNew(LR"(audio\click.mp3)", true);
-    balance.resetBet();
-    ui->btnReapet->hide();
-    ui->btnDeal->show();
+    PlaySoundNew(blackjack::kClickSound, true);
+    m_balance.resetBet();
+    m_ui->btnReapet->hide();
+    m_ui->btnDeal->show();
 }
 void Play::on_btnHit_clicked()
 {
-    if (!game_.hit())
+    if (!m_game.hit())
         return;
-    PlaySoundNew(LR"(audio\click.mp3)", true);
+    PlaySoundNew(blackjack::kClickSound, true);
 
     renderPlayerHand();
-    PlaySoundNew(LR"(audio\dealing.mp3)", true);
+    PlaySoundNew(blackjack::kDealingSound, true);
 
-    if (game_.isRoundComplete())
+    if (m_game.isRoundComplete())
     {
         renderDealerHand(false);
-        const auto outcome = game_.getOutcome();
+        const auto outcome = m_game.getOutcome();
         applyOutcome(outcome);
     }
 }
 void Play::on_btnDeal_clicked()
 {
-    if (balance.GetBet() <= 0)
+    if (m_balance.GetBet() <= 0)
         return;
 
-    SetPlayingUi();
-    ClearHandsUi();
-    game_.startRound();
-
-    PlaySoundNew(LR"(audio\click.mp3)", true);
-
-    renderDealerHand(true);
-    PlaySoundNew(LR"(audio\dealing.mp3)", true);
-    renderPlayerHand();
-    PlaySoundNew(LR"(audio\dealing.mp3)", true);
-
-    if (game_.isRoundComplete())
-        applyOutcome(game_.getOutcome());
+    StartRound();
 }
+#pragma endregion
 
-QLabel* Play::CreateFlyingCard(const QPixmap& px)
-{
-    auto* card = new QLabel(this);
-    card->setPixmap(px);
-    card->resize(px.size());
-
-    const QPoint start = ui->label_deck->mapTo(this, QPoint(0, 0));
-    const int offsetX = (ui->label_deck->width() - card->width()) / 2;
-    const int offsetY = (ui->label_deck->height() - card->height()) / 2;
-    const QPoint centered = start + QPoint(offsetX, offsetY);
-
-    card->move(centered);
-    card->show();
-    card->raise();
-
-    return card;
-}
-
-void Play::AnimateCardTo(QLabel* flying, QLabel* target)
-{
-    const QPoint end = target->mapTo(this, QPoint(0, 0));
-
-    auto* anim = new QPropertyAnimation(flying, "pos", this);
-    anim->setDuration(250);
-    anim->setStartValue(flying->pos());
-    anim->setEndValue(end);
-    anim->setEasingCurve(QEasingCurve::OutCubic);
-
-    connect(anim, &QPropertyAnimation::finished, this, [=] ()
-            {
-                target->setPixmap(flying->pixmap());
-                flying->deleteLater();
-            });
-
-    anim->start(QAbstractAnimation::DeleteWhenStopped);
-}
+#pragma region Rendering
 
 void Play::ClearHandsUi()
 {
-    for (auto* l : playerLabels_)
+    for (auto* l : m_playerLabels)
         l->clear();
 
-    for (auto* l : dealerLabels_)
+    for (auto* l : m_dealerLabels)
         l->clear();
 }
-void Play::renderHand(const blackjack::Hand& hand,
-                      const std::vector<QLabel*>& labels)
+
+void Play::renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels)
 {
     constexpr size_t LAST = 1;
 
@@ -287,7 +228,8 @@ void Play::renderHand(const blackjack::Hand& hand,
 
         if (isLast && labels [i]->pixmap().isNull())
         {
-            AnimateCardTo(CreateFlyingCard(px), labels [i]);
+            QLabel* flying = m_animator->CreateCenteredCard(this, m_ui->label_deck, px);
+            m_animator->AnimateCardTo(flying, labels [i]);
         }
         else
         {
@@ -295,27 +237,29 @@ void Play::renderHand(const blackjack::Hand& hand,
         }
     }
 }
+
 void Play::renderDealerHand(bool hideHoleCard)
 {
-    const auto dealer = game_.getDealerHand(hideHoleCard);
-    renderHand(dealer, dealerLabels_);
+    const auto dealer = m_game.getDealerHand(hideHoleCard);
+    renderHand(dealer, m_dealerLabels);
 
-    ui->label_15->setText(
+    m_ui->label_15->setText(
         "Dealer: " + QString::number(dealer.getTotal()));
 }
+
 void Play::renderPlayerHand()
 {
-    const auto& player = game_.getPlayerHand();
-    renderHand(player, playerLabels_);
+    const auto& player = m_game.getPlayerHand();
+    renderHand(player, m_playerLabels);
 
-    ui->label_14->setText(
+    m_ui->label_14->setText(
         "Player: " + QString::number(player.getTotal()));
 }
 
 void Play::applyOutcome(blackjack::Outcome outcome)
 {
-    const int bet = balance.GetBet();
-    const int payout = static_cast<int>(bet * rules.blackjackPayout);
+    const int bet = m_balance.GetBet();
+    const int payout = static_cast<int>(bet * m_rules.blackjackPayout);
 
     switch (outcome)
     {
@@ -323,19 +267,65 @@ void Play::applyOutcome(blackjack::Outcome outcome)
         break;
 
     case blackjack::Outcome::PLAYER_BLACKJACK:
-        balance.win(bet + payout);
+        m_balance.win(bet + payout);
         break;
 
     case blackjack::Outcome::PLAYER_WIN:
     case blackjack::Outcome::DEALER_BUST:
-        balance.win(bet);
+        m_balance.win(bet);
         break;
 
     default:
-        balance.lose();
+        m_balance.lose();
         break;
     }
 
-    ui->labelBalance->setText("Balance: " + QString::number(balance.GetBalance()));
+    m_ui->labelBalance->setText("Balance: " + QString::number(m_balance.GetBalance()));
     SetBettingUi();
 }
+
+#pragma endregion
+
+#pragma region Play Init
+
+void Play::InitLabels()
+{
+    m_playerLabels = {
+        m_ui->player_1,
+        m_ui->player_2,
+        m_ui->player_3,
+        m_ui->player_4,
+        m_ui->player_5,
+        m_ui->player_6
+    };
+
+    m_dealerLabels = {
+        m_ui->dealer_1,
+        m_ui->dealer_2,
+        m_ui->dealer_3,
+        m_ui->dealer_4,
+        m_ui->dealer_5,
+        m_ui->dealer_6
+    };
+}
+
+void Play::InitChipConnections()
+{
+    connect(m_ui->btnChip5, &QPushButton::clicked, this, &Play::OnChip5);
+    connect(m_ui->btnChip10, &QPushButton::clicked, this, &Play::OnChip10);
+    connect(m_ui->btnChip25, &QPushButton::clicked, this, &Play::OnChip25);
+    connect(m_ui->btnChip50, &QPushButton::clicked, this, &Play::OnChip50);
+}
+
+void Play::InitDeckBack()
+{
+    QString path = blackjack::DeckSettings::getCardsPath() + "cardBack_red1.png";
+    m_ui->label_deck->setPixmap(QPixmap(path));
+}
+
+void Play::InitAnimator()
+{
+    m_animator = new blackjack::Animator(this);
+}
+
+#pragma endregion

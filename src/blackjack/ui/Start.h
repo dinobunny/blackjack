@@ -1,6 +1,5 @@
 #pragma once
 #include <QMainWindow>
-#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -21,9 +20,5 @@ private slots:
     void OnAnimFinished();
 
 private:
-    QLabel* CreateChip();
-    void AnimateChip(QLabel* );
-
-private:
-    Ui::Start* ui;
+    Ui::Start* m_ui;
 };

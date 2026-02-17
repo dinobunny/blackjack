@@ -1,23 +1,26 @@
 #pragma once
 #include "GameRules.hpp"
 
-class Balance
+namespace blackjack
 {
-public:
-    explicit Balance(int initialBalance = 100) noexcept;
+    class Balance
+    {
+    public:
+        explicit Balance(int initialBalance = 100) noexcept;
 
-    [[nodiscard]] int GetBalance() const noexcept;
-    [[nodiscard]] int GetBet() const noexcept;
-
-
-    void resetBet() noexcept;
-    bool setBet(blackjack::GameRules::Bet bet) noexcept;
-
-    void lose() noexcept;
-    void win(int amount) noexcept;
+        [[nodiscard]] int GetBalance() const noexcept;
+        [[nodiscard]] int GetBet() const noexcept;
 
 
-private:
-    int m_balance = 0;
-    int m_bet = 0;
-};
+        void resetBet() noexcept;
+        bool setBet(blackjack::GameRules::Bet bet) noexcept;
+
+        void lose() noexcept;
+        void win(int amount) noexcept;
+
+
+    private:
+        int m_balance = 0;
+        int m_bet = 0;
+    };
+}// namespace blackjack

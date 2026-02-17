@@ -1,33 +1,34 @@
 #include "Style.h"
 #include "ui_Style.h"
 #include "Menu.h"
-#include "DeckStyle.h"
+#include "utils/DeckStyle.h"
 
 #include <QStyle>
+#include <utils/Navigation.h>
+#include <audio/PlaySound.h>
+#include "utils/Config_Constants.h"
+
+using namespace blackjack;
 
 Style::Style(QWidget* parent)
     : QMainWindow(parent)
-    , ui(new Ui::Style)
+    , m_ui(new Ui::Style)
 {
-    ui->setupUi(this);
-    installRecursive(ui->widget_Classic);
-    installRecursive(ui->widget_Castom);
+    m_ui->setupUi(this);
+
+    installRecursive(m_ui->widget_Classic);
+    installRecursive(m_ui->widget_Castom);
 }
 
 Style::~Style()
 {
-    delete ui;
-}
-
-void Style::back()
-{
-    auto* style = new Menu();
-    style->show();
-    this->close();
+    delete m_ui;
 }
 
 void Style::applySelected(QWidget* widget, const char* prop, bool on)
 {
+    PlaySoundNew(blackjack::kClickSound, true);
+
     widget->setProperty(prop, on);
     widget->style()->unpolish(widget);
     widget->style()->polish(widget);
@@ -36,23 +37,28 @@ void Style::applySelected(QWidget* widget, const char* prop, bool on)
 
 void Style::on_btnSelect_clicked()
 {
-    const bool classic = ui->widget_Classic->property("selected").toBool();
-    const bool custom = ui->widget_Castom->property("selected").toBool();
+    PlaySoundNew(blackjack::kClickSound, true);
+
+    const bool classic = m_ui->widget_Classic->property("selected").toBool();
+    const bool custom = m_ui->widget_Castom->property("selected").toBool();
 
     if (!classic && !custom)
         return;
 
-    applySelected(ui->widget_Classic, "confirmed", classic);
-    applySelected(ui->widget_Castom, "confirmed", custom);
+    applySelected(m_ui->widget_Classic, "confirmed", classic);
+    applySelected(m_ui->widget_Castom, "confirmed", custom);
 
-    blackjack::DeckSettings::SetStyle(
-        classic ? blackjack::DeckStyle::Classic : blackjack::DeckStyle::Castom
-    );
+    if (classic)
+        blackjack::DeckSettings::SetStyle(blackjack::DeckStyle::Classic);
+    else
+        blackjack::DeckSettings::SetStyle(blackjack::DeckStyle::Castom);
+
 }
 
 void Style::on_btnBack_clicked()
 {
-    back();
+    PlaySoundNew(blackjack::kClickSound, true);
+    blackjack::NavigateTo<Menu>(this);
 }
 
 void Style::installRecursive(QWidget* root)
@@ -62,7 +68,15 @@ void Style::installRecursive(QWidget* root)
 
     const auto children = root->findChildren<QWidget*>();
     for (auto* c : children)
+    {
         c->installEventFilter(this);
+    }
+}
+
+void Style::setSelectedPair(QWidget* on, QWidget* off)
+{
+    applySelected(on, "selected", true);
+    applySelected(off, "selected", false);
 }
 
 bool Style::eventFilter(QObject* obj, QEvent* event)
@@ -77,23 +91,21 @@ bool Style::eventFilter(QObject* obj, QEvent* event)
     QWidget* pointer = widget;
 
     while (pointer &&
-           pointer != ui->widget_Classic &&
-           pointer != ui->widget_Castom)
+           pointer != m_ui->widget_Classic &&
+           pointer != m_ui->widget_Castom)
     {
         pointer = pointer->parentWidget();
     }
 
-    if (pointer == ui->widget_Classic)
+    if (pointer == m_ui->widget_Classic)
     {
-        applySelected(ui->widget_Classic, "selected", true);
-        applySelected(ui->widget_Castom, "selected", false);
+        setSelectedPair(m_ui->widget_Classic, m_ui->widget_Castom);
         return true;
     }
 
-    if (pointer == ui->widget_Castom)
+    if (pointer == m_ui->widget_Castom)
     {
-        applySelected(ui->widget_Castom, "selected", true);
-        applySelected(ui->widget_Classic, "selected", false);
+        setSelectedPair(m_ui->widget_Castom, m_ui->widget_Classic);
         return true;
     }
 
