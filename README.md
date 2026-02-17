@@ -1,4 +1,4 @@
-## ⚙️ Build Configuration
+### Build Configuration
 
 - IDE: **Visual Studio 2022**
 - Platform: **Windows**
