@@ -22,10 +22,12 @@ public:
     Play(QWidget* parent = nullptr);
     ~Play();
 
+
 private slots:
     void on_btnBackMenu_clicked();
     void on_btnDeal_clicked();
     void on_btnStand_clicked();
+    void StartRound();
     void on_btnClear_clicked();
     void on_btnHit_clicked();
     void on_btnReapet_clicked();
@@ -37,22 +39,27 @@ private slots:
 
 private:
 
+    void ApplyChip(blackjack::GameRules::Bet bet, const QString& chipPath);
     void ClearHandsUi();
     void renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels);
     void renderDealerHand(bool hideHoleCard);
     void renderPlayerHand();
     void applyOutcome(blackjack::Outcome outcome);
+    void InitAnimator();
+    void InitLabels();
+    void InitChipConnections();
+    void InitDeckBack();
     void SetBettingUi();
     void SetPlayingUi();
 
 private:
-    Ui::Play* ui;
-    Balance balance;
+    Ui::Play* m_ui;
+    Balance m_balance;
 
-    blackjack::BlackjackGame game_;
-    blackjack::GameRules rules;
-    std::vector<QLabel*> playerLabels_;
-    std::vector<QLabel*> dealerLabels_;
-    blackjack::Animator* animator_ = nullptr;
+    blackjack::BlackjackGame m_game;
+    blackjack::GameRules m_rules;
+    std::vector<QLabel*> m_playerLabels;
+    std::vector<QLabel*> m_dealerLabels;
+    blackjack::Animator* m_animator = nullptr;
 
 };
