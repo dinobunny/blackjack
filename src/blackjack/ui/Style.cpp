@@ -4,6 +4,7 @@
 #include "utils/DeckStyle.h"
 
 #include <QStyle>
+#include <utils/Navigation.h>
 
 Style::Style(QWidget* parent)
     : QMainWindow(parent)
@@ -17,13 +18,6 @@ Style::Style(QWidget* parent)
 Style::~Style()
 {
     delete ui;
-}
-
-void Style::back()
-{
-    auto* style = new Menu();
-    style->show();
-    this->close();
 }
 
 void Style::applySelected(QWidget* widget, const char* prop, bool on)
@@ -52,7 +46,7 @@ void Style::on_btnSelect_clicked()
 
 void Style::on_btnBack_clicked()
 {
-    back();
+    blackjack::NavigateTo<Menu>(this);
 }
 
 void Style::installRecursive(QWidget* root)

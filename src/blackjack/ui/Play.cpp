@@ -6,6 +6,7 @@
 
 #define NOMINMAX
 #include "../audio/PlaySound.h"
+#include <utils/Navigation.h>
 
 Play::Play(QWidget* parent)
     : QMainWindow(parent)
@@ -33,16 +34,6 @@ Play::~Play()
 {
     delete ui;
 }
-
-void Play::back()
-{
-    auto* menu = new Menu();
-    menu->show();
-
-    setAttribute(Qt::WA_DeleteOnClose);
-    this->close();
-}
-
 
 void Play::OnChip5()
 {
@@ -89,7 +80,7 @@ void Play::SetBettingUi()
 {
     if (balance.GetBalance() < static_cast<int>(blackjack::GameRules::Bet::Five))
     {
-        back();
+        blackjack::NavigateTo<Menu>(this, true);
     }
 
     ui->btnChip5->setEnabled(balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Five));
@@ -143,7 +134,7 @@ void Play::SetPlayingUi()
 
 void Play::on_btnBackMenu_clicked()
 {
-    back();
+    blackjack::NavigateTo<Menu>(this);
 }
 
 void Play::on_btnStand_clicked()

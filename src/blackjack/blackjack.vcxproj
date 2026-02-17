@@ -140,6 +140,7 @@ xcopy "$(ProjectDir)..\..\3rd-party\DependenciesAudio\*" "$(SolutionDir)_bin\$(P
     <QtRcc Include="images.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="utils\Navigation.h" />
     <ClInclude Include="utils\Util.h" />
     <QtMoc Include="animation\animation.h" />
     <ClInclude Include="audio\PlaySound.h" />

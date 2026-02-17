@@ -3,6 +3,7 @@
 #include "Play.h"
 
 #include "ui_Menu.h"
+#include "utils/Navigation.h"
 
 Menu::Menu(QWidget* parent)
     : QMainWindow(parent)
@@ -16,28 +17,13 @@ Menu::~Menu()
     delete ui;
 }
 
-void Menu::goStyle()
-{
-    auto* menu = new Style();
-    menu->show();
-    this->close();
-}
-
-void Menu::goPlay()
-{
-    auto* menu = new Play();
-    menu->show();
-    this->close();
-}
-
 void Menu::on_btnStyle_clicked()
 {
-    goStyle();
+    blackjack::NavigateTo<Style>(this);
 }
 
-    
 void Menu::on_btnPlay_clicked()
 {
-    goPlay();
+    blackjack::NavigateTo<Play>(this);
 }
 

@@ -5,6 +5,7 @@
 #include "ui_Start.h"
 #include "Menu.h"
 
+#include "utils/Navigation.h"
 #include "animation/animation.h"
 
 Start::Start(QWidget* parent)
@@ -20,7 +21,7 @@ Start::Start(QWidget* parent)
     QLabel* chip = animator->CreateChip(this);
 
     connect(animator, &blackjack::Animator::Finished, this, &Start::OnAnimFinished);
-    animator->AnimateMove( chip, QPoint(200, 400), QPoint(1000, 600),4000);
+    animator->AnimateMove(chip, QPoint(200, 400), QPoint(1000, 600), 4000);
 }
 
 Start::~Start()
@@ -30,7 +31,5 @@ Start::~Start()
 
 void Start::OnAnimFinished()
 {
-    auto* menu = new Menu();
-    menu->show();
-    close();
+    blackjack::NavigateTo<Menu>(this);
 }

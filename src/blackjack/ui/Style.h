@@ -24,7 +24,6 @@ private:
     void installRecursive(QWidget* root);
     void applySelected(QWidget* widget, const char* prop, bool on);
     bool eventFilter(QObject* obj, QEvent* event);
-    void back();
 
 private:
     Ui::Style* ui;

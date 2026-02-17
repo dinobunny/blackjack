@@ -20,8 +20,6 @@ public:
     Play(QWidget* parent = nullptr);
     ~Play();
 
-    void back();
-
     void ClearHandsUi();
 
     QLabel* CreateFlyingCard(const QPixmap& px);

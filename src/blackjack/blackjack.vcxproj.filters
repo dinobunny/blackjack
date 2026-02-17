@@ -53,10 +53,16 @@
     <ClCompile Include="ui\Style.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DeckStyle.cpp">
+    <ClCompile Include="ui\Play.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui\Play.cpp">
+    <ClCompile Include="animation\animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\DeckStyle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,6 +77,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ui\Play.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="animation\animation.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -115,7 +124,16 @@
     <ClInclude Include="core\Balance.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DeckStyle.h">
+    <ClInclude Include="utils\Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Config_Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\DeckStyle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Navigation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
