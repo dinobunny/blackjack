@@ -1,9 +1,11 @@
 #pragma once
-#include <QMainWindow>
-#include "core\Balance.hpp"
 #include <QLabel>
-#include <core\GameRules.hpp>
-#include <core\BlackjackGame.hpp>
+#include <QMainWindow>
+
+#include "core/Balance.hpp"
+#include "core/GameRules.hpp"
+#include "core/BlackjackGame.hpp"
+#include "animation/animation.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -20,20 +22,6 @@ public:
     Play(QWidget* parent = nullptr);
     ~Play();
 
-    void ClearHandsUi();
-
-    QLabel* CreateFlyingCard(const QPixmap& px);
-
-    void AnimateCardTo(QLabel* flying, QLabel* target);
-
-    void renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels);
-
-    void renderDealerHand(bool hideHoleCard);
-
-    void renderPlayerHand();
-
-    void applyOutcome(blackjack::Outcome outcome);
-
 private slots:
     void on_btnBackMenu_clicked();
     void on_btnDeal_clicked();
@@ -48,6 +36,12 @@ private slots:
     void OnChip50();
 
 private:
+
+    void ClearHandsUi();
+    void renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels);
+    void renderDealerHand(bool hideHoleCard);
+    void renderPlayerHand();
+    void applyOutcome(blackjack::Outcome outcome);
     void SetBettingUi();
     void SetPlayingUi();
 
@@ -59,5 +53,6 @@ private:
     blackjack::GameRules rules;
     std::vector<QLabel*> playerLabels_;
     std::vector<QLabel*> dealerLabels_;
+    blackjack::Animator* animator_ = nullptr;
 
 };

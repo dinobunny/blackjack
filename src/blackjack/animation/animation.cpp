@@ -35,4 +35,46 @@ namespace blackjack
         anim->start(QAbstractAnimation::DeleteWhenStopped);
     }
 
+    QLabel* Animator::CreateCenteredCard(QWidget* parent, QWidget* from, const QPixmap& px)
+    {
+        QLabel* card = new QLabel(parent);
+        card->setPixmap(px);
+        card->resize(px.size());
+
+        const QPoint start = from->mapTo(parent, QPoint(0, 0));
+        const int offsetX = (from->width() - card->width()) / 2;
+        const int offsetY = (from->height() - card->height()) / 2;
+        const QPoint centered = start + QPoint(offsetX, offsetY);
+
+        card->move(centered);
+        card->show();
+        card->raise();
+
+        return card;
+    }
+
+    void Animator::AnimateCardTo(QLabel* flying, QLabel* target, int duration)
+    {
+        QWidget* parentWindow = flying->parentWidget();
+        if (!parentWindow)
+            parentWindow = target->parentWidget();
+
+        const QPoint end = target->mapTo(parentWindow, QPoint(0, 0));
+
+        auto* anim = new QPropertyAnimation(flying, "pos", parentWindow);
+
+        anim->setDuration(duration);
+        anim->setStartValue(flying->pos());
+        anim->setEndValue(end);
+        anim->setEasingCurve(QEasingCurve::OutCubic);
+
+        connect( anim, &QPropertyAnimation::finished,this, [flying, target] ()
+            {
+                target->setPixmap(flying->pixmap());
+                flying->deleteLater();
+            });
+
+        anim->start(QAbstractAnimation::DeleteWhenStopped);
+    }
+
 }
