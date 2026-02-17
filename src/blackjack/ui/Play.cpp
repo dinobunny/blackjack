@@ -151,7 +151,7 @@ void Play::on_btnStand_clicked()
     if (game_.isRoundComplete())
         return;
 
-    PlaySoundNew(LR"(assets\music\click.mp3)", true);
+    PlaySoundNew(LR"(audio\click.mp3)", true);
     game_.stand();
 
     renderDealerHand(false);

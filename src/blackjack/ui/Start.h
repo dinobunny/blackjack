@@ -21,9 +21,5 @@ private slots:
     void OnAnimFinished();
 
 private:
-    QLabel* CreateChip();
-    void AnimateChip(QLabel* );
-
-private:
     Ui::Start* ui;
 };

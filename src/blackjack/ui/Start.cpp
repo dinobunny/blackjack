@@ -5,6 +5,7 @@
 #include "ui_Start.h"
 #include "Menu.h"
 
+#include "animation/animation.h"
 
 Start::Start(QWidget* parent)
     : QMainWindow(parent)
@@ -12,14 +13,14 @@ Start::Start(QWidget* parent)
 {
     ui->setupUi(this);
 
-    // Background
-    QPixmap bg(R"(:/assets/ui/assets/ui/start.png)");
+    QPixmap bg(blackjack::kStartBackgroundPath);
     ui->label->setPixmap(bg);
 
-    // Chip
-    QLabel* chip = CreateChip();
-    AnimateChip(chip);
+    auto* animator = new blackjack::Animator(this);
+    QLabel* chip = animator->CreateChip(this);
 
+    connect(animator, &blackjack::Animator::Finished, this, &Start::OnAnimFinished);
+    animator->AnimateMove( chip, QPoint(200, 400), QPoint(1000, 600),4000);
 }
 
 Start::~Start()
@@ -31,32 +32,5 @@ void Start::OnAnimFinished()
 {
     auto* menu = new Menu();
     menu->show();
-    this->close();
-}
-
-QLabel* Start::CreateChip()
-{
-    auto* chip = new QLabel(this);
-    QPixmap chipPix(R"(:/assets/chips/assets/chips/chipRedWhite.png)");
-
-    chip->setPixmap(chipPix);
-    chip->resize(chipPix.size());
-    chip->show();
-
-    return chip;
-}
-
-
-void Start::AnimateChip(QLabel* chip)
-{
-    auto* anim = new QPropertyAnimation(chip, "pos");
-
-    anim->setDuration(4000);
-    anim->setStartValue(QPoint(200, 400));
-    anim->setEndValue(QPoint(1000, 600));
-    
-    connect(anim, &QPropertyAnimation::finished, this, &Start::OnAnimFinished);
-    
-    anim->start(QAbstractAnimation::DeleteWhenStopped);
-
+    close();
 }
