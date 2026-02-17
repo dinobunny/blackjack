@@ -1,7 +1,9 @@
-#include "Deck.hpp"
+
 #include <algorithm>
 #include <random>
 #include <stdexcept>
+
+#include "Deck.hpp"
 
 using namespace blackjack;
 

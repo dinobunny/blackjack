@@ -1,6 +1,8 @@
-#include "animation.h"
+
 #include <QPixmap>
 #include <QPropertyAnimation>
+
+#include "animation.h"
 
 using namespace blackjack;
 

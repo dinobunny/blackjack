@@ -1,10 +1,11 @@
 #pragma once
 
+#include <memory>
+#include <optional>
+
 #include "GameRules.hpp"
 #include "Deck.hpp"
 #include "Hand.hpp"
-#include <memory>
-#include <optional>
 
 namespace blackjack
 {

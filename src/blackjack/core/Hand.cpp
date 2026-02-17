@@ -1,7 +1,8 @@
-#include "Hand.hpp"
+
 #include <sstream>
 #include <stdexcept>
 
+#include "Hand.hpp"
 
 namespace blackjack
 {

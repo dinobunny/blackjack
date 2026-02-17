@@ -1,9 +1,9 @@
+#include <QStyle>
+
 #include "Style.h"
 #include "ui_Style.h"
 #include "Menu.h"
 #include "utils/DeckStyle.h"
-
-#include <QStyle>
 #include <utils/Navigation.h>
 #include <audio/PlaySound.h>
 #include "utils/Config_Constants.h"

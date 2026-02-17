@@ -3,7 +3,8 @@
 #include <QObject>
 #include <QLabel>
 #include <QPoint>
-#include <utils/Config_Constants.h>
+
+#include "utils/Config_Constants.h"
 
 namespace blackjack
 {

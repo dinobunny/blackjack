@@ -1,5 +1,7 @@
-#include "Card.hpp"
+
 #include <stdexcept>
+
+#include "Card.hpp"
 
 using namespace blackjack;
 

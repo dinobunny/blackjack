@@ -1,13 +1,14 @@
+
 #include "Play.h"
 #include "Menu.h"
 #include "ui_Play.h"
 #include "utils/DeckStyle.h"
-
 #include <utils/Navigation.h>
 #include <utils/Config_Constants.h>
 
 #define NOMINMAX
-#include <audio/PlaySound.h>
+#include "audio/PlaySound.h"
+
 using namespace blackjack;
 
 #pragma region Constructors
@@ -17,7 +18,7 @@ Play::Play(QWidget* parent)
     , m_ui(new Ui::Play)
 {
     m_ui->setupUi(this);
-    PlaySoundNew(blackjack::kBackgroundMusicSound, true);
+    PlaySoundNew(kBackgroundMusicSound, true);
 
     InitAnimator();
     InitLabels();
@@ -35,7 +36,7 @@ Play::~Play()
 #pragma endregion
 
 #pragma region Betting
-void Play::ApplyChip(blackjack::GameRules::Bet bet, const QString& chipPath)
+void Play::ApplyChip(GameRules::Bet bet, const QString& chipPath)
 {
     m_balance.setBet(bet);
 
@@ -46,35 +47,35 @@ void Play::ApplyChip(blackjack::GameRules::Bet bet, const QString& chipPath)
 
 void Play::OnChip5()
 {
-    ApplyChip(blackjack::GameRules::Bet::Five, blackjack::kChipBlackWhitePath);
+    ApplyChip(GameRules::Bet::Five, kChipBlackWhitePath);
 }
 
 void Play::OnChip10()
 {
-    ApplyChip(blackjack::GameRules::Bet::Ten, blackjack::kChipRedWhitePath);
+    ApplyChip(GameRules::Bet::Ten, kChipRedWhitePath);
 }
 
 void Play::OnChip25()
 {
-    ApplyChip(blackjack::GameRules::Bet::TwentyFive, blackjack::kChipGreenWhitePath);
+    ApplyChip(GameRules::Bet::TwentyFive, kChipGreenWhitePath);
 }
 
 void Play::OnChip50()
 {
-    ApplyChip(blackjack::GameRules::Bet::Fifty, blackjack::kChipBlueWhitePath);
+    ApplyChip(GameRules::Bet::Fifty, kChipBlueWhitePath);
 }
 
 void Play::SetBettingUi()
 {
-    if (m_balance.GetBalance() < static_cast<int>(blackjack::GameRules::Bet::Five))
+    if (m_balance.GetBalance() < static_cast<int>(GameRules::Bet::Five))
     {
-        blackjack::NavigateTo<Menu>(this, true);
+        NavigateTo<Menu>(this, true);
     }
 
-    m_ui->btnChip5->setEnabled(m_balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Five));
-    m_ui->btnChip10->setEnabled(m_balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Ten));
-    m_ui->btnChip25->setEnabled(m_balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::TwentyFive));
-    m_ui->btnChip50->setEnabled(m_balance.GetBalance() >= static_cast<int>(blackjack::GameRules::Bet::Fifty));
+    m_ui->btnChip5->setEnabled(m_balance.GetBalance() >= static_cast<int>(GameRules::Bet::Five));
+    m_ui->btnChip10->setEnabled(m_balance.GetBalance() >= static_cast<int>(GameRules::Bet::Ten));
+    m_ui->btnChip25->setEnabled(m_balance.GetBalance() >= static_cast<int>(GameRules::Bet::TwentyFive));
+    m_ui->btnChip50->setEnabled(m_balance.GetBalance() >= static_cast<int>(GameRules::Bet::Fifty));
 
     m_ui->labelBalance->setText("Balance: " + QString::number(m_balance.GetBalance()));
 
@@ -128,13 +129,13 @@ void Play::StartRound()
     ClearHandsUi();
     m_game.startRound();
 
-    PlaySoundNew(blackjack::kClickSound, true);
+    PlaySoundNew(kClickSound, true);
 
     renderDealerHand(true);
-    PlaySoundNew(blackjack::kDealingSound, true);
+    PlaySoundNew(kDealingSound, true);
 
     renderPlayerHand();
-    PlaySoundNew(blackjack::kDealingSound, true);
+    PlaySoundNew(kDealingSound, true);
 
     if (m_game.isRoundComplete())
         applyOutcome(m_game.getOutcome());
@@ -145,7 +146,7 @@ void Play::on_btnStand_clicked()
     if (m_game.isRoundComplete())
         return;
 
-    PlaySoundNew(blackjack::kClickSound, true);
+    PlaySoundNew(kClickSound, true);
     m_game.stand();
 
     renderDealerHand(false);
@@ -156,7 +157,7 @@ void Play::on_btnStand_clicked()
 }
 void Play::on_btnBackMenu_clicked()
 {
-    blackjack::NavigateTo<Menu>(this);
+    NavigateTo<Menu>(this);
 }
 void Play::on_btnReapet_clicked()
 {
@@ -167,7 +168,7 @@ void Play::on_btnReapet_clicked()
 }
 void Play::on_btnClear_clicked()
 {
-    PlaySoundNew(blackjack::kClickSound, true);
+    PlaySoundNew(kClickSound, true);
     m_balance.resetBet();
     m_ui->btnReapet->hide();
     m_ui->btnDeal->show();
@@ -176,10 +177,10 @@ void Play::on_btnHit_clicked()
 {
     if (!m_game.hit())
         return;
-    PlaySoundNew(blackjack::kClickSound, true);
+    PlaySoundNew(kClickSound, true);
 
     renderPlayerHand();
-    PlaySoundNew(blackjack::kDealingSound, true);
+    PlaySoundNew(kDealingSound, true);
 
     if (m_game.isRoundComplete())
     {
@@ -208,7 +209,7 @@ void Play::ClearHandsUi()
         l->clear();
 }
 
-void Play::renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& labels)
+void Play::renderHand(const Hand& hand, const std::vector<QLabel*>& labels)
 {
     constexpr size_t LAST = 1;
 
@@ -220,7 +221,7 @@ void Play::renderHand(const blackjack::Hand& hand, const std::vector<QLabel*>& l
 
     for (size_t i = 0; i < count; ++i)
     {
-        QPixmap px(blackjack::DeckSettings::BuildCardPath(cards [i]));
+        QPixmap px(DeckSettings::BuildCardPath(cards [i]));
         if (px.isNull())
             continue;
 
@@ -256,22 +257,22 @@ void Play::renderPlayerHand()
         "Player: " + QString::number(player.getTotal()));
 }
 
-void Play::applyOutcome(blackjack::Outcome outcome)
+void Play::applyOutcome(Outcome outcome)
 {
     const int bet = m_balance.GetBet();
     const int payout = static_cast<int>(bet * m_rules.blackjackPayout);
 
     switch (outcome)
     {
-    case blackjack::Outcome::PUSH:
+    case Outcome::PUSH:
         break;
 
-    case blackjack::Outcome::PLAYER_BLACKJACK:
+    case Outcome::PLAYER_BLACKJACK:
         m_balance.win(bet + payout);
         break;
 
-    case blackjack::Outcome::PLAYER_WIN:
-    case blackjack::Outcome::DEALER_BUST:
+    case Outcome::PLAYER_WIN:
+    case Outcome::DEALER_BUST:
         m_balance.win(bet);
         break;
 
@@ -319,13 +320,13 @@ void Play::InitChipConnections()
 
 void Play::InitDeckBack()
 {
-    QString path = blackjack::DeckSettings::getCardsPath() + "cardBack_red1.png";
+    QString path = DeckSettings::getCardsPath() + "cardBack_red1.png";
     m_ui->label_deck->setPixmap(QPixmap(path));
 }
 
 void Play::InitAnimator()
 {
-    m_animator = new blackjack::Animator(this);
+    m_animator = new Animator(this);
 }
 
 #pragma endregion

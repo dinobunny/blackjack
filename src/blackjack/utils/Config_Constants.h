@@ -4,7 +4,6 @@ namespace blackjack
 {
     inline constexpr const char* kStartBackgroundPath = R"(:/assets/ui/assets/ui/start.png)";
 
-
     inline constexpr const char* kChipBlackWhitePath =R"(:/assets/chips/assets/chips/chipBlackWhite.png)";
     inline constexpr const char* kChipRedWhitePath = R"(:/assets/chips/assets/chips/chipRedWhite.png)";
     inline constexpr const char* kChipGreenWhitePath = R"(:/assets/chips/assets/chips/chipGreenWhite.png)";

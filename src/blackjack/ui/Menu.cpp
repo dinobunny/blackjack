@@ -1,12 +1,12 @@
+
 #include "Menu.h"
 #include "Style.h"
 #include "Play.h"
-
 #include "ui_Menu.h"
 #include "utils/Navigation.h"
 
 #define NOMINMAX
-#include "../audio/PlaySound.h"
+#include "audio/PlaySound.h"
 
 Menu::Menu(QWidget* parent)
     : QMainWindow(parent)
