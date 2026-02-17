@@ -24,8 +24,8 @@ namespace blackjack
         }
     }
 
-    BlackjackGame::BlackjackGame(const GameRules& rules)
-        : rules_(rules), deck_(std::make_unique<Deck>(rules.numDecks)),
+    BlackjackGame::BlackjackGame(const GameRules& m_rules)
+        : rules_(m_rules), deck_(std::make_unique<Deck>(m_rules.numDecks)),
         roundComplete_(false)
     {
     }

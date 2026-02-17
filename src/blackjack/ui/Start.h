@@ -20,5 +20,5 @@ private slots:
     void OnAnimFinished();
 
 private:
-    Ui::Start* ui;
+    Ui::Start* m_ui;
 };

@@ -27,5 +27,5 @@ private:
     bool eventFilter(QObject* obj, QEvent* event);
 
 private:
-    Ui::Style* ui;
+    Ui::Style* m_ui;
 };

@@ -10,17 +10,17 @@
 
 Style::Style(QWidget* parent)
     : QMainWindow(parent)
-    , ui(new Ui::Style)
+    , m_ui(new Ui::Style)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 
-    installRecursive(ui->widget_Classic);
-    installRecursive(ui->widget_Castom);
+    installRecursive(m_ui->widget_Classic);
+    installRecursive(m_ui->widget_Castom);
 }
 
 Style::~Style()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void Style::applySelected(QWidget* widget, const char* prop, bool on)
@@ -37,14 +37,14 @@ void Style::on_btnSelect_clicked()
 {
     PlaySoundNew(blackjack::kClickSound, true);
 
-    const bool classic = ui->widget_Classic->property("selected").toBool();
-    const bool custom = ui->widget_Castom->property("selected").toBool();
+    const bool classic = m_ui->widget_Classic->property("selected").toBool();
+    const bool custom = m_ui->widget_Castom->property("selected").toBool();
 
     if (!classic && !custom)
         return;
 
-    applySelected(ui->widget_Classic, "confirmed", classic);
-    applySelected(ui->widget_Castom, "confirmed", custom);
+    applySelected(m_ui->widget_Classic, "confirmed", classic);
+    applySelected(m_ui->widget_Castom, "confirmed", custom);
 
     if (classic)
         blackjack::DeckSettings::SetStyle(blackjack::DeckStyle::Classic);
@@ -89,21 +89,21 @@ bool Style::eventFilter(QObject* obj, QEvent* event)
     QWidget* pointer = widget;
 
     while (pointer &&
-           pointer != ui->widget_Classic &&
-           pointer != ui->widget_Castom)
+           pointer != m_ui->widget_Classic &&
+           pointer != m_ui->widget_Castom)
     {
         pointer = pointer->parentWidget();
     }
 
-    if (pointer == ui->widget_Classic)
+    if (pointer == m_ui->widget_Classic)
     {
-        setSelectedPair(ui->widget_Classic, ui->widget_Castom);
+        setSelectedPair(m_ui->widget_Classic, m_ui->widget_Castom);
         return true;
     }
 
-    if (pointer == ui->widget_Castom)
+    if (pointer == m_ui->widget_Castom)
     {
-        setSelectedPair(ui->widget_Castom, ui->widget_Classic);
+        setSelectedPair(m_ui->widget_Castom, m_ui->widget_Classic);
         return true;
     }
 

@@ -21,5 +21,5 @@ private slots:
     void on_btnPlay_clicked();
 
 private:
-    Ui::Menu* ui;
+    Ui::Menu* m_ui;
 };

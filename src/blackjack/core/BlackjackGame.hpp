@@ -25,7 +25,7 @@ namespace blackjack
     class BlackjackGame
     {
     public:
-        explicit BlackjackGame(const GameRules& rules = GameRules {});
+        explicit BlackjackGame(const GameRules& m_rules = GameRules {});
         void startRound();
 
         /** @return true if action was applied. */

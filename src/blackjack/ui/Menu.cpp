@@ -10,14 +10,14 @@
 
 Menu::Menu(QWidget* parent)
     : QMainWindow(parent)
-    , ui(new Ui::Menu)
+    , m_ui(new Ui::Menu)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 }
 
 Menu::~Menu()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void Menu::on_btnStyle_clicked()

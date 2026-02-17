@@ -7,12 +7,12 @@
 
 Start::Start(QWidget* parent)
     : QMainWindow(parent)
-    , ui(new Ui::Start)
+    , m_ui(new Ui::Start)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 
     QPixmap bg(blackjack::kStartBackgroundPath);
-    ui->label->setPixmap(bg);
+    m_ui->label->setPixmap(bg);
 
     auto* animator = new blackjack::Animator(this);
     QLabel* chip = animator->CreateChip(this);
@@ -23,7 +23,7 @@ Start::Start(QWidget* parent)
 
 Start::~Start()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void Start::OnAnimFinished()
