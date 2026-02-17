@@ -1,5 +1,6 @@
 <Solution>
   <Configurations>
+    <BuildType Name="Release" />
     <Platform Name="x64" />
   </Configurations>
   <Project Path="src\blackjack/blackjack.vcxproj" Id="e0dfbd9c-8b59-4e2a-ae6a-078193cafcea" />
