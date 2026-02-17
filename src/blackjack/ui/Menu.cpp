@@ -22,12 +22,12 @@ Menu::~Menu()
 
 void Menu::on_btnStyle_clicked()
 {
-    PlaySoundNew(LR"(audio\click.mp3)", true);
+    blackjack::PlaySoundNew(LR"(audio\click.mp3)", true);
     blackjack::NavigateTo<Style>(this);
 }
 
 void Menu::on_btnPlay_clicked()
 {
-    PlaySoundNew(LR"(audio\click.mp3)", true);
+    blackjack::PlaySoundNew(LR"(audio\click.mp3)", true);
     blackjack::NavigateTo<Play>(this);
 }

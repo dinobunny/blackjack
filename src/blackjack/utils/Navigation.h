@@ -18,4 +18,4 @@ namespace blackjack
 
         current->close();
     }
-}
+}// namespace blackjack

@@ -8,6 +8,7 @@
 
 #define NOMINMAX
 #include <audio/PlaySound.h>
+using namespace blackjack;
 
 #pragma region Constructors
 

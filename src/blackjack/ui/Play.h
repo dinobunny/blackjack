@@ -54,7 +54,7 @@ private:
 
 private:
     Ui::Play* m_ui;
-    Balance m_balance;
+    blackjack::Balance m_balance;
 
     blackjack::BlackjackGame m_game;
     blackjack::GameRules m_rules;

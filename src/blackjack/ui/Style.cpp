@@ -8,6 +8,8 @@
 #include <audio/PlaySound.h>
 #include "utils/Config_Constants.h"
 
+using namespace blackjack;
+
 Style::Style(QWidget* parent)
     : QMainWindow(parent)
     , m_ui(new Ui::Style)

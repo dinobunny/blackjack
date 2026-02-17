@@ -22,4 +22,4 @@ namespace blackjack
     private:
         inline static DeckStyle m_style = DeckStyle::Classic;
     };
-}
+}// namespace blackjack

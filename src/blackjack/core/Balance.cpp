@@ -1,5 +1,7 @@
 #include "Balance.hpp"
 
+using namespace blackjack;
+
 Balance::Balance(int initialBalance) noexcept
     : m_balance(initialBalance)
 {

@@ -85,7 +85,7 @@ namespace
     }
 }
 
-void PlaySoundNew(const TCHAR* file, bool async)
+void blackjack::PlaySoundNew(const TCHAR* file, bool async)
 {
     // playing a file via DirectShow
 

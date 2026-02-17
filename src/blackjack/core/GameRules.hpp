@@ -16,4 +16,4 @@ namespace blackjack
         double blackjackPayout = 1.5;  // 3:2 = 1.5, 6:5 = 1.2
         double penetration = 0.75;  // fraction of shoe dealt before reshuffle
     };
-}
+}// namespace blackjack

@@ -13,5 +13,4 @@ namespace blackjack
     inline constexpr const wchar_t* kBackgroundMusicSound = LR"(audio/background_Music.mp3)";
     inline constexpr const wchar_t* kClickSound = LR"(audio/click.mp3)";
     inline constexpr const wchar_t* kDealingSound = LR"(audio/dealing.mp3)";
-}
-#pragma once
+}// namespace blackjack
