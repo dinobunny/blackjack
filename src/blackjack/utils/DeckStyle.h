@@ -1,6 +1,8 @@
 #pragma once
+
 #include <QString>
-#include <core/Card.hpp>
+
+#include "core/Card.hpp"
 
 namespace blackjack
 {

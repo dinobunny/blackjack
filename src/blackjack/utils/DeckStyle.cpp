@@ -1,4 +1,6 @@
+
 #include "DeckStyle.h"
+#include "utils/Config_Constants.h"
 
 using namespace blackjack;
 
@@ -10,9 +12,9 @@ void DeckSettings::SetStyle(DeckStyle style)noexcept
 QString DeckSettings::getCardsPath()
 {
     if (m_style == DeckStyle::Classic)
-        return R"(:/assets/cards/classic/assets/cards/classic/)";
+        return kClassicCardsPath;
 
-    return R"(:/assets/cards/castom/assets/cards/castom/)";
+    return kCastomCardsPath;
 }
 
 QString blackjack::DeckSettings::BuildCardPath(const Card& card)

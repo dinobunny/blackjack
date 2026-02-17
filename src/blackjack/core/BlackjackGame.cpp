@@ -1,5 +1,7 @@
-#include "BlackjackGame.hpp"
+
 #include <stdexcept>
+
+#include "BlackjackGame.hpp"
 
 using namespace blackjack;
 
@@ -25,8 +27,8 @@ std::string outcomeToString(Outcome outcome)
 }
 
 BlackjackGame::BlackjackGame(const GameRules& m_rules)
-    : rules_(m_rules), deck_(std::make_unique<Deck>(m_rules.numDecks)),
-    roundComplete_(false)
+    : m_rules(m_rules), m_deck(std::make_unique<Deck>(m_rules.numDecks)),
+    m_roundComplete(false)
 {
 }
 
@@ -36,40 +38,40 @@ void BlackjackGame::startRound()
     checkAndReshuffle();
 
     // Clear previous hands
-    playerHand_.clear();
-    dealerHand_.clear();
-    roundComplete_ = false;
-    outcome_.reset();
+    m_playerHand.clear();
+    m_dealerHand.clear();
+    m_roundComplete = false;
+    m_outcome.reset();
 
     // Deal initial cards (player, dealer, player, dealer)
-    playerHand_.addCard(deck_->deal());
-    dealerHand_.addCard(deck_->deal());
-    playerHand_.addCard(deck_->deal());
-    dealerHand_.addCard(deck_->deal());
+    m_playerHand.addCard(m_deck->deal());
+    m_dealerHand.addCard(m_deck->deal());
+    m_playerHand.addCard(m_deck->deal());
+    m_dealerHand.addCard(m_deck->deal());
 
 
     // Check for immediate blackjack
-    if (playerHand_.isBlackjack() || dealerHand_.isBlackjack())
+    if (m_playerHand.isBlackjack() || m_dealerHand.isBlackjack())
     {
-        roundComplete_ = true;
-        outcome_ = determineOutcome();
+        m_roundComplete = true;
+        m_outcome = determineOutcome();
     }
 }
 
 bool BlackjackGame::hit()
 {
-    if (roundComplete_)
+    if (m_roundComplete)
     {
         return false;
     }
 
-    playerHand_.addCard(deck_->deal());
+    m_playerHand.addCard(m_deck->deal());
 
     // Check if player busts
-    if (playerHand_.isBust())
+    if (m_playerHand.isBust())
     {
-        roundComplete_ = true;
-        outcome_ = Outcome::PLAYER_BUST;
+        m_roundComplete = true;
+        m_outcome = Outcome::PLAYER_BUST;
         return true;
     }
 
@@ -78,7 +80,7 @@ bool BlackjackGame::hit()
 
 void BlackjackGame::stand()
 {
-    if (roundComplete_)
+    if (m_roundComplete)
     {
         return;
     }
@@ -86,39 +88,39 @@ void BlackjackGame::stand()
     // Player is done, dealer plays
     playDealerHand();
 
-    roundComplete_ = true;
-    outcome_ = determineOutcome();
+    m_roundComplete = true;
+    m_outcome = determineOutcome();
 }
 
 Outcome BlackjackGame::getOutcome() const
 {
-    if (!roundComplete_)
+    if (!m_roundComplete)
     {
         throw std::logic_error("Round is not complete");
     }
 
-    return outcome_.value();
+    return m_outcome.value();
 }
 
 Hand BlackjackGame::getDealerHand(bool hideHoleCard) const
 {
-    if (hideHoleCard && dealerHand_.size() >= 2)
+    if (hideHoleCard && m_dealerHand.size() >= 2)
     {
         Hand visibleHand;
-        visibleHand.addCard(dealerHand_.getCards() [0]);
+        visibleHand.addCard(m_dealerHand.getCards() [0]);
         return visibleHand;
     }
 
-    return dealerHand_;
+    return m_dealerHand;
 }
 
 void BlackjackGame::reset()
 {
-    deck_->reset();
-    playerHand_.clear();
-    dealerHand_.clear();
-    roundComplete_ = false;
-    outcome_.reset();
+    m_deck->reset();
+    m_playerHand.clear();
+    m_dealerHand.clear();
+    m_roundComplete = false;
+    m_outcome.reset();
 }
 
 void BlackjackGame::playDealerHand()
@@ -126,17 +128,17 @@ void BlackjackGame::playDealerHand()
     // Dealer must hit until 17 or higher
     while (true)
     {
-        int total = dealerHand_.getTotal();
-        bool soft = dealerHand_.isSoft();
+        int total = m_dealerHand.getTotal();
+        bool soft = m_dealerHand.isSoft();
 
         // Check if dealer should hit
         bool shouldHit = false;
 
-        if (total < 17)
+        if (total < m_rules.dealerStandValue)
         {
             shouldHit = true;
         }
-        else if (total == 17 && soft && rules_.dealerHitsSoft17)
+        else if (total == m_rules.dealerStandValue && soft && m_rules.dealerHitsSoft17)
         {
             shouldHit = true;
         }
@@ -146,10 +148,10 @@ void BlackjackGame::playDealerHand()
             break;
         }
 
-        dealerHand_.addCard(deck_->deal());
+        m_dealerHand.addCard(m_deck->deal());
 
         // Check for bust
-        if (dealerHand_.isBust())
+        if (m_dealerHand.isBust())
         {
             break;
         }
@@ -158,8 +160,8 @@ void BlackjackGame::playDealerHand()
 
 Outcome BlackjackGame::determineOutcome() const
 {
-    bool playerBlackjack = playerHand_.isBlackjack();
-    bool dealerBlackjack = dealerHand_.isBlackjack();
+    bool playerBlackjack = m_playerHand.isBlackjack();
+    bool dealerBlackjack = m_dealerHand.isBlackjack();
 
     // Check for blackjacks first
     if (playerBlackjack && dealerBlackjack)
@@ -178,15 +180,15 @@ Outcome BlackjackGame::determineOutcome() const
     }
 
     // Check for busts
-    int playerTotal = playerHand_.getTotal();
-    int dealerTotal = dealerHand_.getTotal();
+    int playerTotal = m_playerHand.getTotal();
+    int dealerTotal = m_dealerHand.getTotal();
 
-    if (playerTotal > 21)
+    if (playerTotal > m_rules.blackjackValue)
     {
         return Outcome::PLAYER_BUST;
     }
 
-    if (dealerTotal > 21)
+    if (dealerTotal > m_rules.blackjackValue)
     {
         return Outcome::DEALER_BUST;
     }
@@ -208,8 +210,33 @@ Outcome BlackjackGame::determineOutcome() const
 
 void BlackjackGame::checkAndReshuffle()
 {
-    if (deck_->needsReshuffle(rules_.penetration))
+    if (m_deck->needsReshuffle(m_rules.penetration))
     {
-        deck_->reset();
+        m_deck->reset();
     }
 }
+
+int BlackjackGame::calcPayout(int bet) const
+{
+    if (!m_outcome.has_value())
+        throw std::logic_error("Round is not complete");
+
+    const Outcome o = *m_outcome;
+
+    switch (o)
+    {
+    case Outcome::PUSH:
+        return 0;
+
+    case Outcome::PLAYER_BLACKJACK:
+        return static_cast<int>(bet * m_rules.blackjackPayout);
+
+    case Outcome::PLAYER_WIN:
+    case Outcome::DEALER_BUST:
+        return bet;
+
+    default:
+        return -bet;
+    }
+}
+

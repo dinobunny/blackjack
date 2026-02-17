@@ -1,4 +1,6 @@
+
 #include <QApplication>
+
 #include "ui/Start.h"
 
 int main(int argc, char* argv[])

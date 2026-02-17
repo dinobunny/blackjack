@@ -1,10 +1,11 @@
 #pragma once
 
+#include <memory>
+#include <optional>
+
 #include "GameRules.hpp"
 #include "Deck.hpp"
 #include "Hand.hpp"
-#include <memory>
-#include <optional>
 
 namespace blackjack
 {
@@ -32,9 +33,11 @@ namespace blackjack
         bool hit();
         void stand();
 
+        int calcPayout(int bet) const;
+
         bool isRoundComplete() const
         {
-            return roundComplete_;
+            return m_roundComplete;
         }
 
         /** @throws std::logic_error if round not complete. */
@@ -42,7 +45,7 @@ namespace blackjack
 
         const Hand& getPlayerHand() const
         {
-            return playerHand_;
+            return m_playerHand;
         }
 
         /** hideHoleCard: true to show only upcard (e.g. during player turn). */
@@ -50,21 +53,24 @@ namespace blackjack
 
         const GameRules& getRules() const
         {
-            return rules_;
+            return m_rules;
         }
         void reset();
 
     private:
-        GameRules rules_;
-        std::unique_ptr<Deck> deck_;
-        Hand playerHand_;
-        Hand dealerHand_;
-        bool roundComplete_;
-        std::optional<Outcome> outcome_;
-
         void playDealerHand();
         Outcome determineOutcome() const;
         void checkAndReshuffle();
+
+
+    private:
+        GameRules m_rules;
+        std::unique_ptr<Deck> m_deck;
+        Hand m_playerHand;
+        Hand m_dealerHand;
+        bool m_roundComplete;
+        std::optional<Outcome> m_outcome;
+
     };
 
 } // namespace blackjack

@@ -1,3 +1,4 @@
+
 #include "Balance.hpp"
 
 using namespace blackjack;
