@@ -1,6 +1,3 @@
-#include <QPixmap>
-#include <QPropertyAnimation>
-
 #include "Start.h"
 #include "ui_Start.h"
 #include "Menu.h"
