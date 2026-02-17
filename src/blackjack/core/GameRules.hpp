@@ -11,9 +11,14 @@ namespace blackjack
             TwentyFive = 25,
             Fifty = 50
         };
+        int dealerStandValue = 17;
+        int blackjackValue = 21;
         size_t numDecks = 6;
         bool dealerHitsSoft17 = true;
         double blackjackPayout = 1.5;  // 3:2 = 1.5, 6:5 = 1.2
         double penetration = 0.75;  // fraction of shoe dealt before reshuffle
+        int cardsPerDeck = 52;
+        int suitsCount = 4;
+        int ranksCount = 13;
     };
 }// namespace blackjack

@@ -260,26 +260,12 @@ void Play::renderPlayerHand()
 void Play::applyOutcome(Outcome outcome)
 {
     const int bet = m_balance.GetBet();
-    const int payout = static_cast<int>(bet * m_rules.blackjackPayout);
+    const int delta = m_game.calcPayout(bet);
 
-    switch (outcome)
-    {
-    case Outcome::PUSH:
-        break;
-
-    case Outcome::PLAYER_BLACKJACK:
-        m_balance.win(bet + payout);
-        break;
-
-    case Outcome::PLAYER_WIN:
-    case Outcome::DEALER_BUST:
-        m_balance.win(bet);
-        break;
-
-    default:
+    if (delta > 0)      
+        m_balance.win(delta);
+    else if (delta < 0) 
         m_balance.lose();
-        break;
-    }
 
     m_ui->labelBalance->setText("Balance: " + QString::number(m_balance.GetBalance()));
     SetBettingUi();
