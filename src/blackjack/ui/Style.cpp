@@ -6,12 +6,14 @@
 #include <QStyle>
 #include <utils/Navigation.h>
 #include <audio/PlaySound.h>
+#include "utils/Config_Constants.h"
 
 Style::Style(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::Style)
 {
     ui->setupUi(this);
+
     installRecursive(ui->widget_Classic);
     installRecursive(ui->widget_Castom);
 }
@@ -23,7 +25,7 @@ Style::~Style()
 
 void Style::applySelected(QWidget* widget, const char* prop, bool on)
 {
-    PlaySoundNew(LR"(audio\click.mp3)", true);
+    PlaySoundNew(blackjack::kClickSound, true);
 
     widget->setProperty(prop, on);
     widget->style()->unpolish(widget);
@@ -33,7 +35,7 @@ void Style::applySelected(QWidget* widget, const char* prop, bool on)
 
 void Style::on_btnSelect_clicked()
 {
-    PlaySoundNew(LR"(audio\click.mp3)", true);
+    PlaySoundNew(blackjack::kClickSound, true);
 
     const bool classic = ui->widget_Classic->property("selected").toBool();
     const bool custom = ui->widget_Castom->property("selected").toBool();
@@ -44,14 +46,16 @@ void Style::on_btnSelect_clicked()
     applySelected(ui->widget_Classic, "confirmed", classic);
     applySelected(ui->widget_Castom, "confirmed", custom);
 
-    blackjack::DeckSettings::SetStyle(
-        classic ? blackjack::DeckStyle::Classic : blackjack::DeckStyle::Castom
-    );
+    if (classic)
+        blackjack::DeckSettings::SetStyle(blackjack::DeckStyle::Classic);
+    else
+        blackjack::DeckSettings::SetStyle(blackjack::DeckStyle::Castom);
+
 }
 
 void Style::on_btnBack_clicked()
 {
-    PlaySoundNew(LR"(audio\click.mp3)", true);
+    PlaySoundNew(blackjack::kClickSound, true);
     blackjack::NavigateTo<Menu>(this);
 }
 
@@ -62,7 +66,15 @@ void Style::installRecursive(QWidget* root)
 
     const auto children = root->findChildren<QWidget*>();
     for (auto* c : children)
+    {
         c->installEventFilter(this);
+    }
+}
+
+void Style::setSelectedPair(QWidget* on, QWidget* off)
+{
+    applySelected(on, "selected", true);
+    applySelected(off, "selected", false);
 }
 
 bool Style::eventFilter(QObject* obj, QEvent* event)
@@ -85,15 +97,13 @@ bool Style::eventFilter(QObject* obj, QEvent* event)
 
     if (pointer == ui->widget_Classic)
     {
-        applySelected(ui->widget_Classic, "selected", true);
-        applySelected(ui->widget_Castom, "selected", false);
+        setSelectedPair(ui->widget_Classic, ui->widget_Castom);
         return true;
     }
 
     if (pointer == ui->widget_Castom)
     {
-        applySelected(ui->widget_Castom, "selected", true);
-        applySelected(ui->widget_Classic, "selected", false);
+        setSelectedPair(ui->widget_Castom, ui->widget_Classic);
         return true;
     }
 

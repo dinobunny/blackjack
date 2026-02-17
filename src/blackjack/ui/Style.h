@@ -22,6 +22,7 @@ private slots:
 
 private:
     void installRecursive(QWidget* root);
+    void setSelectedPair(QWidget* on, QWidget* off);
     void applySelected(QWidget* widget, const char* prop, bool on);
     bool eventFilter(QObject* obj, QEvent* event);
 
